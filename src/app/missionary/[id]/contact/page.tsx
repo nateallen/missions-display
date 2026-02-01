@@ -23,11 +23,11 @@ function generateVCard(missionary: Missionary): string {
   vcard.push(`ORG:Lighthouse Baptist Church`);
   vcard.push(`TITLE:Missionary`);
 
-  // Add photo
+  // Add photo URL
   const photoUrl = missionary.profilePhoto.startsWith('http')
     ? missionary.profilePhoto
-    : `${typeof window !== 'undefined' ? window.location.origin : ''}${missionary.profilePhoto}`;
-  vcard.push(`PHOTO;VALUE=uri:${photoUrl}`);
+    : `${window.location.origin}${missionary.profilePhoto}`;
+  vcard.push(`PHOTO;VALUE=URL:${photoUrl}`);
 
   vcard.push(`NOTE:${missionary.bio.replace(/\n/g, '\\n')}`);
 
