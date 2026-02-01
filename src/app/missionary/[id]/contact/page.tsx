@@ -6,8 +6,9 @@ import Image from 'next/image';
 import { Mail, Phone, Cake, Users, Facebook, Instagram, Twitter, Youtube, Globe, Download } from 'lucide-react';
 import LoadingSpinner from '@/components/shared/LoadingSpinner';
 import { Missionary } from '@/types';
+import { useOrganizationStore } from '@/lib/store/useOrganizationStore';
 
-function generateVCard(missionary: Missionary): string {
+function generateVCard(missionary: Missionary, organizationName: string): string {
   const vcard = [
     'BEGIN:VCARD',
     'VERSION:3.0',
@@ -20,7 +21,7 @@ function generateVCard(missionary: Missionary): string {
     vcard.push(`TEL:${missionary.contact.phone}`);
   }
 
-  vcard.push(`ORG:Lighthouse Baptist Church`);
+  vcard.push(`ORG:${organizationName}`);
   vcard.push(`TITLE:Missionary`);
 
   // Add photo URL
@@ -66,13 +67,14 @@ function generateVCard(missionary: Missionary): string {
 export default function MissionaryContactPage() {
   const params = useParams();
   const { missionaries, isLoading } = useMissionaries();
+  const { organization } = useOrganizationStore();
 
   const missionary = missionaries.find((m) => m.id === params.id);
 
   const handleDownloadContact = () => {
     if (!missionary) return;
 
-    const vcard = generateVCard(missionary);
+    const vcard = generateVCard(missionary, organization.name);
     const blob = new Blob([vcard], { type: 'text/vcard' });
     const url = window.URL.createObjectURL(blob);
     const link = document.createElement('a');
@@ -241,7 +243,7 @@ export default function MissionaryContactPage() {
 
         {/* Footer */}
         <div className="mt-8 text-center text-sm text-gray-500">
-          <p>Lighthouse Baptist Church Missionaries</p>
+          <p>{organization.name} Missionaries</p>
         </div>
       </div>
     </div>

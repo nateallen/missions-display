@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { RotateCcw, ChevronRight, ChevronLeft } from 'lucide-react';
 import { useMapStore } from '@/lib/store/useMapStore';
 import { useMissionaryStore } from '@/lib/store/useMissionaryStore';
+import { useOrganizationStore } from '@/lib/store/useOrganizationStore';
 
 interface HeaderProps {
   showPanel?: boolean;
@@ -13,6 +14,7 @@ interface HeaderProps {
 export default function Header({ showPanel = true, onTogglePanel }: HeaderProps) {
   const { resetMap } = useMapStore();
   const { filteredMissionaries, clearFilters } = useMissionaryStore();
+  const { organization } = useOrganizationStore();
 
   const handleReset = () => {
     resetMap();
@@ -27,15 +29,15 @@ export default function Header({ showPanel = true, onTogglePanel }: HeaderProps)
           <div className="flex items-center gap-3">
             <div className="relative h-12 w-12 flex items-center justify-center">
               <Image
-                src="/images/logo/lighthouse.png"
-                alt="Lighthouse Baptist Church"
+                src={organization.logoUrl}
+                alt={organization.name}
                 width={48}
                 height={48}
                 className="object-contain"
               />
             </div>
             <div>
-              <h1 className="text-2xl font-bold text-white">Lighthouse Baptist Church</h1>
+              <h1 className="text-2xl font-bold text-white">{organization.name}</h1>
               <p className="text-sm text-gray-400">
                 {filteredMissionaries.length}{' '}
                 {filteredMissionaries.length === 1 ? 'Missionary' : 'Missionaries'}

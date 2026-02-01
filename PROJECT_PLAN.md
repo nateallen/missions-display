@@ -45,10 +45,10 @@ A multi-tenant SaaS platform for churches to display and manage missionary infor
   - Update payment details
   - Manage team users and their permissions
 
-- **User Roles** (to be defined):
-  - Newsletter Editor (can only update newsletters)
-  - Missionary Manager (can add/edit missionary profiles)
-  - Admin (full account access)
+- **User Roles** ✅ FINALIZED:
+  - **Editor**: Can only manage newsletters, read-only access to missionaries
+  - **Manager**: Full missionary CRUD + newsletter management, no org settings/billing/users
+  - **Org Admin**: Full church access (missionaries, newsletters, billing, users)
 
 ### 3. Software Administrators
 **Platform**: Admin dashboard
@@ -222,6 +222,8 @@ A multi-tenant SaaS platform for churches to display and manage missionary infor
    - [ ] Configure Auth0/Clerk
    - [ ] Create auth middleware for API routes
    - [ ] Define user roles (Super Admin, Org Admin, Manager, Editor)
+   - [ ] Implement organization identification (subdomain/custom domain routing)
+   - [ ] Create organization API endpoint to load org data (name, logo, etc.)
 
 2. **Week 3-4: Core APIs with Service Layer Pattern**
    - [ ] Create service files (keep logic separate from routes)
@@ -238,12 +240,49 @@ A multi-tenant SaaS platform for churches to display and manage missionary infor
    - [ ] Missionary search endpoint
    - [ ] Global vs local missionary logic
 
-4. **Week 7-8: Dashboard UI & Testing**
-   - [ ] Build church admin dashboard UI
-   - [ ] Missionary management forms
-   - [ ] Newsletter upload UI
-   - [ ] Basic user management
+4. **Week 7-8: Admin Dashboard UIs**
+
+   **Church Admin Dashboard** (Org Admins, Managers, Editors):
+   - [ ] Organization settings page (name, logo, contact info)
+   - [ ] Missionary management UI:
+     - [ ] Search/browse existing missionaries (global + local)
+     - [ ] Add global missionaries to supported list
+     - [ ] Create/edit local missionary profiles
+     - [ ] Upload missionary photos
+     - [ ] Manage family members and birthdays
+     - [ ] Remove missionaries from display
+   - [ ] Newsletter management UI:
+     - [ ] Upload PDF newsletters
+     - [ ] Associate with missionaries
+     - [ ] Edit/delete newsletters
+     - [ ] Newsletter preview
+   - [ ] User management (Org Admin only):
+     - [ ] Invite team members
+     - [ ] Assign roles (Manager, Editor)
+     - [ ] Remove users
+   - [ ] Subscription/billing view (Org Admin only)
+
+   **Super Admin Dashboard**:
+   - [ ] Organization management:
+     - [ ] Create new organizations
+     - [ ] View all organizations list
+     - [ ] Edit organization details
+     - [ ] Suspend/activate accounts
+   - [ ] User management across all orgs:
+     - [ ] View all users
+     - [ ] Reset passwords
+     - [ ] Change user emails
+     - [ ] Update user roles
+     - [ ] Delete users
+   - [ ] Global missionary management:
+     - [ ] Create/edit global missionaries
+     - [ ] Track which orgs use each missionary
+     - [ ] Bulk update capabilities
+   - [ ] Platform metrics and analytics
+
+   **Testing**:
    - [ ] Integration testing
+   - [ ] Role-based access testing
 
 **Best Practices for Easy Migration**:
 ```typescript
@@ -494,10 +533,16 @@ users
   - email (string, unique)
   - first_name (string)
   - last_name (string)
-  - role (enum: super_admin, org_admin, missionary_manager, newsletter_editor)
-  - organization_id (uuid, foreign key)
+  - role (enum: SUPER_ADMIN, ORG_ADMIN, MANAGER, EDITOR)
+  - organization_id (uuid, foreign key, nullable - only NULL for SUPER_ADMIN)
   - created_at (timestamp)
   - updated_at (timestamp)
+
+-- User Roles:
+-- SUPER_ADMIN: Platform-level, NOT linked to organization (organization_id = NULL)
+-- ORG_ADMIN: Full church access (missionaries, newsletters, billing, users)
+-- MANAGER: Missionary CRUD + newsletters (no org settings/billing/users)
+-- EDITOR: Newsletters only, read-only on missionaries
 
 -- Missionaries (both global and local)
 missionaries

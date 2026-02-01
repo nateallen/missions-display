@@ -25,3 +25,5 @@ export type {
   PaginatedRequest,
   MissionaryFilters,
 } from './api';
+
+export type { Organization, OrganizationAddress } from './organization';
