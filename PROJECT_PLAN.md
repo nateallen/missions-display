@@ -374,11 +374,41 @@ export async function GET(req: Request) {
    - [ ] Handle webhooks (subscription events)
    - [ ] Customer portal for managing subscriptions
 
-2. **Subscription Tiers** (To Be Defined)
-   - **Tier Ideas**:
-     - Basic: X missionaries, Y users
-     - Pro: More missionaries, more users, global missionaries access
-     - Enterprise: Unlimited, custom features
+2. **Subscription Tiers** ✅ FINALIZED
+
+   **Starter** ($49/mo)
+   - Up to 25 missionaries (local only)
+   - Manual data entry
+   - Up to 3 users
+   - Community support (email/docs)
+   - Standard features (map, newsletters, QR codes, subscriptions)
+
+   **Professional** ($99/mo)
+   - Up to 100 missionaries (local + global)
+   - **Access to global missionary database** (managed by platform admin)
+   - **Automatic updates** when global missionaries are updated
+   - 50 AI extractions/month
+   - Up to 10 users
+   - Email support (48hr response)
+   - All Starter features
+
+   **Enterprise** ($199/mo)
+   - Unlimited missionaries (local + global)
+   - **Priority for global missionary updates** (processed first)
+   - Unlimited AI extractions
+   - Unlimited users
+   - Custom domain (white-label - e.g., missions.yourchurch.org)
+   - Priority support (24hr response)
+   - Advanced analytics dashboard
+   - API access (future)
+   - All Professional features
+
+   **Key Differentiators**:
+   - **Global Missionaries**: Platform admin maintains master profiles for major mission organizations, pushes updates to all churches automatically
+   - **AI Extractions**: Use AI to extract missionary data from prayer cards and newsletters (saves 15-30 min per missionary)
+   - **White-label**: Remove platform branding, use custom domain
+
+   **Trial Period**: 14-day free trial (all Enterprise features)
 
 3. **Account Management**
    - [ ] Subscription tier display
@@ -388,14 +418,19 @@ export async function GET(req: Request) {
    - [ ] Payment method management
 
 4. **Limits Enforcement**
-   - [ ] Missionary count limits
-   - [ ] User count limits
-   - [ ] Feature gating (global missionaries for premium)
+   - [ ] Missionary count limits (25 for Starter, 100 for Pro, unlimited for Enterprise)
+   - [ ] User count limits (3 for Starter, 10 for Pro, unlimited for Enterprise)
+   - [ ] Feature gating:
+     - [ ] Global missionaries (Pro+ only)
+     - [ ] AI extractions (Pro: 50/mo, Enterprise: unlimited)
+     - [ ] Custom domain (Enterprise only)
+     - [ ] Advanced analytics (Enterprise only)
+   - [ ] AI extraction quota tracking and reset monthly
 
-**Questions**:
-- Pricing model? (Per missionary? Per user? Flat rate?)
-- Trial period duration?
-- Annual vs monthly pricing difference?
+**Implementation Notes**:
+- Use Stripe's metered billing for AI extractions overage (if needed)
+- Consider annual pricing: 20% discount (e.g., $470/yr for Starter vs $588/yr monthly)
+- Grace period: 7 days past limit before enforcement (soft limit)
 
 ---
 
