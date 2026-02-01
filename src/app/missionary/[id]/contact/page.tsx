@@ -8,7 +8,28 @@ import LoadingSpinner from '@/components/shared/LoadingSpinner';
 import { Missionary } from '@/types';
 import { useOrganizationStore } from '@/lib/store/useOrganizationStore';
 
-function generateVCard(missionary: Missionary, organizationName: string): string {
+async function imageToBase64(imageUrl: string): Promise<string> {
+  try {
+    const response = await fetch(imageUrl);
+    const blob = await response.blob();
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const base64 = reader.result as string;
+        // Remove the data URL prefix (e.g., "data:image/jpeg;base64,")
+        const base64Data = base64.split(',')[1];
+        resolve(base64Data);
+      };
+      reader.onerror = reject;
+      reader.readAsDataURL(blob);
+    });
+  } catch (error) {
+    console.error('Failed to convert image to base64:', error);
+    return '';
+  }
+}
+
+async function generateVCard(missionary: Missionary, organizationName: string): Promise<string> {
   const vcard = [
     'BEGIN:VCARD',
     'VERSION:3.0',
@@ -18,17 +39,23 @@ function generateVCard(missionary: Missionary, organizationName: string): string
   ];
 
   if (missionary.contact.phone) {
-    vcard.push(`TEL:${missionary.contact.phone}`);
+    vcard.push(`TEL;TYPE=CELL:${missionary.contact.phone}`);
   }
 
   vcard.push(`ORG:${organizationName}`);
   vcard.push(`TITLE:Missionary`);
 
-  // Add photo URL
+  // Add photo as base64
   const photoUrl = missionary.profilePhoto.startsWith('http')
     ? missionary.profilePhoto
     : `${window.location.origin}${missionary.profilePhoto}`;
-  vcard.push(`PHOTO;VALUE=URL:${photoUrl}`);
+
+  const base64Photo = await imageToBase64(photoUrl);
+  if (base64Photo) {
+    // Determine image type from file extension
+    const imageType = missionary.profilePhoto.toLowerCase().endsWith('.png') ? 'PNG' : 'JPEG';
+    vcard.push(`PHOTO;ENCODING=b;TYPE=${imageType}:${base64Photo}`);
+  }
 
   vcard.push(`NOTE:${missionary.bio.replace(/\n/g, '\\n')}`);
 
@@ -71,10 +98,10 @@ export default function MissionaryContactPage() {
 
   const missionary = missionaries.find((m) => m.id === params.id);
 
-  const handleDownloadContact = () => {
+  const handleDownloadContact = async () => {
     if (!missionary) return;
 
-    const vcard = generateVCard(missionary, organization.name);
+    const vcard = await generateVCard(missionary, organization.name);
     const blob = new Blob([vcard], { type: 'text/vcard' });
     const url = window.URL.createObjectURL(blob);
     const link = document.createElement('a');

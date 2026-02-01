@@ -113,6 +113,7 @@ A multi-tenant SaaS platform for churches to display and manage missionary infor
 - **Maps**: react-simple-maps ✅
 - **PDF Viewing**: react-pdf ✅
 - **QR Codes**: qrcode.react ✅
+- **vCard Generation**: Contact cards with base64-embedded photos ✅
 
 ### Backend - Phased Approach ✅ DECISION MADE
 
@@ -171,10 +172,13 @@ A multi-tenant SaaS platform for churches to display and manage missionary infor
   - Real-time indexing
 
 ### File Storage
-- **AWS S3**
-  - Missionary photos
+- **AWS S3** (for production)
+  - Missionary profile photos
   - Newsletter PDFs
   - CloudFront CDN for delivery
+- **Local Storage** (Phase 1 - mock data)
+  - `/public/images/missionaries/` - Missionary family photos
+  - `/public/images/countries/` - Country background images (shared across missionaries from same country)
 
 ### Email/Notifications
 - **Options**:
@@ -195,10 +199,13 @@ A multi-tenant SaaS platform for churches to display and manage missionary infor
 - Touch-optimized interface for large displays
 - PDF newsletter viewing
 - Mobile contact page via QR code
-- vCard download for contacts
+- vCard download for contacts (with base64-embedded photos and phone numbers)
 - Filtering and search (client-side)
 - Compact UI optimizations
 - Church branding (Lighthouse Baptist Church)
+- Country-specific background images (stored locally in `/public/images/countries/`)
+- Clickable profile photos with full-size modal view
+- Landscape-oriented family photos on detail pages
 
 ---
 
@@ -719,7 +726,6 @@ missionaries
   - last_name (string)
   - full_name (string)
   - profile_photo_url (string) -- Missionary family photo
-  - cover_photo_url (string) -- Country/region background image representing ministry area
   - bio (text)
   - email (string)
   - phone (string)
@@ -735,6 +741,22 @@ missionaries
   - social_media (jsonb)
   - start_date (date)
   - created_by_organization_id (uuid, foreign key, nullable for global)
+  - created_at (timestamp)
+  - updated_at (timestamp)
+
+-- Note: Country background images are stored separately (per-country, not per-missionary)
+-- in a countries table or static data file, as multiple missionaries from the same
+-- country share the same background image
+
+-- Countries (for background images and country-specific data)
+countries
+  - id (uuid, primary key)
+  - name (string, unique)
+  - flag_emoji (string)
+  - background_image_url (string) -- Country/region cityscape/landscape image
+  - population (string)
+  - primary_language (string)
+  - primary_religion (string)
   - created_at (timestamp)
   - updated_at (timestamp)
 
