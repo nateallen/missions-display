@@ -19,12 +19,36 @@ function generateVCard(missionary: Missionary): string {
     vcard.push(`TEL:${missionary.contact.phone}`);
   }
 
-  vcard.push(`ORG:Lighthouse Baptist Church;${missionary.metadata.organization}`);
-  vcard.push(`TITLE:Missionary - ${missionary.metadata.ministry}`);
+  vcard.push(`ORG:Lighthouse Baptist Church`);
+  vcard.push(`TITLE:Missionary`);
   vcard.push(`NOTE:${missionary.bio.replace(/\n/g, '\\n')}`);
 
+  // Add family birthdays as X- properties
+  if (missionary.family && missionary.family.length > 0) {
+    missionary.family
+      .filter(member => member.birthday)
+      .forEach(member => {
+        const date = new Date(member.birthday!);
+        const formattedDate = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+        vcard.push(`X-ANNIVERSARY;TYPE=${member.relationship.toUpperCase()};X-LABEL=${member.name} Birthday:${formattedDate}`);
+      });
+  }
+
+  // Add all social media URLs
   if (missionary.socialMedia.blog) {
     vcard.push(`URL:${missionary.socialMedia.blog}`);
+  }
+  if (missionary.socialMedia.facebook) {
+    vcard.push(`URL:${missionary.socialMedia.facebook}`);
+  }
+  if (missionary.socialMedia.instagram) {
+    vcard.push(`URL:${missionary.socialMedia.instagram}`);
+  }
+  if (missionary.socialMedia.twitter) {
+    vcard.push(`URL:${missionary.socialMedia.twitter}`);
+  }
+  if (missionary.socialMedia.youtube) {
+    vcard.push(`URL:${missionary.socialMedia.youtube}`);
   }
 
   vcard.push('END:VCARD');
@@ -85,10 +109,10 @@ export default function MissionaryContactPage() {
         {/* Header */}
         <div className="mb-6 text-center">
           <h1 className="text-3xl font-bold text-white mb-2">{missionary.fullName}</h1>
-          <p className="text-lg text-gray-300">
+          <p className="text-lg text-gray-300">Missionary</p>
+          <p className="text-sm text-gray-400 mt-1">
             {missionary.location.city}, {missionary.location.country}
           </p>
-          <p className="text-sm text-gray-400 mt-1">{missionary.metadata.ministry}</p>
 
           {/* Download Contact Button */}
           <button
@@ -123,6 +147,18 @@ export default function MissionaryContactPage() {
               >
                 <Phone className="h-5 w-5 text-green-400 flex-shrink-0" />
                 <span className="text-white">{missionary.contact.phone}</span>
+              </a>
+            )}
+
+            {missionary.socialMedia.blog && (
+              <a
+                href={missionary.socialMedia.blog}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 p-4 rounded-lg bg-gray-700/50 hover:bg-gray-700 transition-colors active:scale-98"
+              >
+                <Globe className="h-5 w-5 text-purple-400 flex-shrink-0" />
+                <span className="text-white break-all">{missionary.socialMedia.blog}</span>
               </a>
             )}
           </div>
