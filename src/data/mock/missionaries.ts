@@ -6,7 +6,7 @@ export const mockMissionaries: Missionary[] = [
     firstName: 'John',
     lastName: 'Smith',
     fullName: 'John Smith',
-    profilePhoto: 'https://images.unsplash.com/photo-1609220136736-443140cffec6?w=400&h=400&fit=crop',
+    profilePhoto: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=400&fit=crop&crop=faces', // Conservative formal portrait - man in suit
     coverPhoto: '/images/missionaries/placeholder-cover.jpg',
     bio: 'Serving in Tokyo, Japan for 8 years. Our ministry focuses on church planting and youth outreach in urban areas. We work with local churches to establish discipleship programs and train local leaders.',
     location: {
@@ -30,7 +30,7 @@ export const mockMissionaries: Missionary[] = [
         name: 'Mary Smith',
         relationship: 'spouse',
         birthday: new Date('1985-03-15'),
-        photo: 'https://i.pravatar.cc/150?img=47',
+        photo: 'https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=150&h=150&fit=crop&crop=faces', // Conservative woman in modest dress
         age: 39,
       },
       {
@@ -38,7 +38,7 @@ export const mockMissionaries: Missionary[] = [
         name: 'Sarah Smith',
         relationship: 'child',
         birthday: new Date('2010-06-20'),
-        photo: 'https://i.pravatar.cc/150?img=28',
+        photo: 'https://images.unsplash.com/photo-1595311687521-4fe36ef8a15e?w=150&h=150&fit=crop&crop=faces', // Young girl in modest dress
         age: 14,
       },
       {
@@ -46,7 +46,7 @@ export const mockMissionaries: Missionary[] = [
         name: 'David Smith',
         relationship: 'child',
         birthday: new Date('2012-11-05'),
-        photo: 'https://i.pravatar.cc/150?img=12',
+        photo: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=150&h=150&fit=crop&crop=faces', // Young boy in formal attire
         age: 12,
       },
     ],
@@ -71,7 +71,7 @@ export const mockMissionaries: Missionary[] = [
     firstName: 'Sarah',
     lastName: 'Johnson',
     fullName: 'Sarah Johnson',
-    profilePhoto: 'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=400&h=400&fit=crop',
+    profilePhoto: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=400&fit=crop&crop=faces', // Conservative woman in professional attire
     bio: 'Medical missionary serving rural communities in Kenya. Providing healthcare and sharing the Gospel through medical clinics. Our team runs mobile clinics that reach remote villages.',
     location: {
       country: 'Kenya',
@@ -93,7 +93,7 @@ export const mockMissionaries: Missionary[] = [
         name: 'Sarah Johnson',
         relationship: 'other',
         birthday: new Date('1989-04-12'),
-        photo: 'https://i.pravatar.cc/150?img=48',
+        photo: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&h=150&fit=crop&crop=faces', // Conservative woman portrait
         age: 35,
       },
     ],
@@ -117,7 +117,7 @@ export const mockMissionaries: Missionary[] = [
     firstName: 'Michael',
     lastName: 'Rodriguez',
     fullName: 'Michael & Ana Rodriguez',
-    profilePhoto: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=400&fit=crop',
+    profilePhoto: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=faces', // Man in suit - formal portrait
     bio: 'Church planting in Lima, Peru. Working with indigenous communities and urban poor. Focus on holistic ministry including education, job training, and spiritual development.',
     location: {
       country: 'Peru',
@@ -139,7 +139,7 @@ export const mockMissionaries: Missionary[] = [
         name: 'Ana Rodriguez',
         relationship: 'spouse',
         birthday: new Date('1988-07-22'),
-        photo: 'https://i.pravatar.cc/150?img=38',
+        photo: 'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=150&h=150&fit=crop&crop=faces', // Woman in modest dress
         age: 36,
       },
       {
@@ -147,7 +147,7 @@ export const mockMissionaries: Missionary[] = [
         name: 'Carlos Rodriguez',
         relationship: 'child',
         birthday: new Date('2015-03-10'),
-        photo: 'https://i.pravatar.cc/150?img=15',
+        photo: 'https://images.unsplash.com/photo-1541533848490-bc8115cd6522?w=150&h=150&fit=crop&crop=faces', // Young boy in formal wear
         age: 9,
       },
     ],
@@ -171,7 +171,7 @@ export const mockMissionaries: Missionary[] = [
     firstName: 'David',
     lastName: 'Chen',
     fullName: 'David Chen',
-    profilePhoto: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&h=400&fit=crop',
+    profilePhoto: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=faces', // Man in professional attire
     bio: 'Bible translation work in the Philippines. Working with tribal communities to translate Scripture into their native languages. Training local translators and literacy workers.',
     location: {
       country: 'Philippines',
@@ -193,7 +193,7 @@ export const mockMissionaries: Missionary[] = [
         name: 'David Chen',
         relationship: 'other',
         birthday: new Date('1986-11-28'),
-        photo: 'https://i.pravatar.cc/150?img=17',
+        photo: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=faces', // Man in suit
         age: 38,
       },
     ],
@@ -216,7 +216,7 @@ export const mockMissionaries: Missionary[] = [
     firstName: 'Rachel',
     lastName: 'Thompson',
     fullName: 'Rachel & James Thompson',
-    profilePhoto: 'https://images.unsplash.com/photo-1521119989659-a83eee488004?w=400&h=400&fit=crop',
+    profilePhoto: 'https://images.unsplash.com/photo-1521119989659-a83eee488004?w=400&h=400&fit=crop&crop=faces',
     bio: 'University ministry in Paris, France. Reaching students with the Gospel and discipling young believers. Hosting weekly Bible studies and evangelistic events on campus.',
     location: {
       country: 'France',
@@ -239,7 +239,7 @@ export const mockMissionaries: Missionary[] = [
         name: 'James Thompson',
         relationship: 'other',
         birthday: new Date('1990-05-14'),
-        photo: 'https://i.pravatar.cc/150?img=33',
+        photo: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=faces', // Man in formal suit
         age: 34,
       },
       {
@@ -247,7 +247,7 @@ export const mockMissionaries: Missionary[] = [
         name: 'Rachel Thompson',
         relationship: 'spouse',
         birthday: new Date('1992-08-22'),
-        photo: 'https://i.pravatar.cc/150?img=44',
+        photo: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop&crop=faces', // Woman in conservative dress
         age: 32,
       },
     ],
@@ -271,7 +271,7 @@ export const mockMissionaries: Missionary[] = [
     firstName: 'Peter',
     lastName: 'Williams',
     fullName: 'Peter Williams',
-    profilePhoto: 'https://images.unsplash.com/photo-1556157382-97eda2d62296?w=400&h=400&fit=crop',
+    profilePhoto: 'https://images.unsplash.com/photo-1556157382-97eda2d62296?w=400&h=400&fit=crop&crop=faces',
     bio: 'Refugee ministry in Lebanon. Serving Syrian refugees with humanitarian aid and sharing hope through Christ. Operating community centers and providing job training.',
     location: {
       country: 'Lebanon',
@@ -293,7 +293,7 @@ export const mockMissionaries: Missionary[] = [
         name: 'Peter Williams',
         relationship: 'other',
         birthday: new Date('1983-02-18'),
-        photo: 'https://i.pravatar.cc/150?img=51',
+        photo: 'https://images.unsplash.com/photo-1568602471122-7832951cc4c5?w=150&h=150&fit=crop&crop=faces', // Man in professional attire
         age: 41,
       },
     ],
@@ -316,7 +316,7 @@ export const mockMissionaries: Missionary[] = [
     firstName: 'Emily',
     lastName: 'Brown',
     fullName: 'Emily Brown',
-    profilePhoto: 'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=400&h=400&fit=crop',
+    profilePhoto: 'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=400&h=400&fit=crop&crop=faces',
     bio: 'Teaching English and sharing the Gospel in South Korea. Working in language schools and building relationships with students. Hosting Bible studies and cultural exchange events.',
     location: {
       country: 'South Korea',
@@ -338,7 +338,7 @@ export const mockMissionaries: Missionary[] = [
         name: 'Emily Brown',
         relationship: 'other',
         birthday: new Date('1994-07-05'),
-        photo: 'https://i.pravatar.cc/150?img=31',
+        photo: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=150&h=150&fit=crop&crop=faces', // Woman in modest professional attire
         age: 30,
       },
     ],
@@ -362,7 +362,7 @@ export const mockMissionaries: Missionary[] = [
     firstName: 'Daniel',
     lastName: 'Martinez',
     fullName: 'Daniel & Sofia Martinez',
-    profilePhoto: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop',
+    profilePhoto: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=faces',
     bio: 'Church multiplication in Mexico. Training pastors and planting churches in unreached areas. Focus on sustainable, locally-led church movements.',
     location: {
       country: 'Mexico',
@@ -384,7 +384,7 @@ export const mockMissionaries: Missionary[] = [
         name: 'Sofia Martinez',
         relationship: 'spouse',
         birthday: new Date('1987-09-30'),
-        photo: 'https://i.pravatar.cc/150?img=45',
+        photo: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&h=150&fit=crop&crop=faces', // Woman in conservative attire
         age: 37,
       },
       {
@@ -392,7 +392,7 @@ export const mockMissionaries: Missionary[] = [
         name: 'Isabella Martinez',
         relationship: 'child',
         birthday: new Date('2014-12-08'),
-        photo: 'https://i.pravatar.cc/150?img=29',
+        photo: 'https://images.unsplash.com/photo-1518887371009-e8d9a92e3d28?w=150&h=150&fit=crop&crop=faces', // Young girl in formal dress
         age: 10,
       },
       {
@@ -400,7 +400,7 @@ export const mockMissionaries: Missionary[] = [
         name: 'Diego Martinez',
         relationship: 'child',
         birthday: new Date('2017-04-15'),
-        photo: 'https://i.pravatar.cc/150?img=11',
+        photo: 'https://images.unsplash.com/photo-1542156822-6924d1a71ace?w=150&h=150&fit=crop&crop=faces', // Young boy in suit
         age: 7,
       },
     ],
