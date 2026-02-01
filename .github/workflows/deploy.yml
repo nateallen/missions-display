@@ -25,6 +25,11 @@ jobs:
           echo "$EC2_SSH_KEY" | base64 -d > ec2_key.pem
           chmod 600 ec2_key.pem
 
+          # Debug: Check if key file was created
+          echo "Key file size: $(wc -c < ec2_key.pem) bytes"
+          echo "Key file first line: $(head -n 1 ec2_key.pem)"
+          echo "Key file permissions: $(ls -la ec2_key.pem)"
+
           # Create .ssh directory and add EC2 to known hosts
           mkdir -p ~/.ssh
           ssh-keyscan -H $EC2_HOST >> ~/.ssh/known_hosts
