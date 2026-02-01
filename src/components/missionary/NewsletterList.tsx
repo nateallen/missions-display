@@ -1,11 +1,38 @@
 'use client';
 
 import { Newsletter } from '@/types';
-import { FileText, Calendar, Download } from 'lucide-react';
+import { Calendar, Download, FileText } from 'lucide-react';
 import { useUIStore } from '@/lib/store/useUIStore';
+import Image from 'next/image';
+import { useState } from 'react';
 
 interface NewsletterListProps {
   newsletters: Newsletter[];
+}
+
+function NewsletterThumbnail({ newsletter }: { newsletter: Newsletter }) {
+  const [imageError, setImageError] = useState(false);
+  const hasThumbnail = newsletter.thumbnailUrl && !imageError;
+
+  if (!hasThumbnail) {
+    return (
+      <div className="flex h-24 w-[4.5rem] items-center justify-center rounded-lg bg-red-600 text-white flex-shrink-0 shadow-md">
+        <FileText className="h-10 w-10" />
+      </div>
+    );
+  }
+
+  return (
+    <div className="relative h-24 w-[4.5rem] flex-shrink-0 rounded-lg overflow-hidden shadow-md group-hover:scale-105 transition-transform">
+      <Image
+        src={newsletter.thumbnailUrl}
+        alt={newsletter.title}
+        fill
+        className="object-cover"
+        onError={() => setImageError(true)}
+      />
+    </div>
+  );
 }
 
 export default function NewsletterList({ newsletters }: NewsletterListProps) {
@@ -45,9 +72,7 @@ export default function NewsletterList({ newsletters }: NewsletterListProps) {
             onClick={() => openPDFViewer(newsletter.pdfUrl, newsletter.title)}
             className="group flex items-start gap-4 p-4 rounded-lg bg-gray-700/50 hover:bg-gray-700 transition-all cursor-pointer touch-manipulation active:scale-[0.98] border-2 border-transparent hover:border-gray-500"
           >
-            <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-red-600 text-white flex-shrink-0 group-hover:scale-110 transition-transform">
-              <FileText className="h-6 w-6" />
-            </div>
+            <NewsletterThumbnail newsletter={newsletter} />
             <div className="flex-1 min-w-0">
               <div className="flex items-start justify-between gap-2">
                 <h3 className="text-lg font-semibold text-white group-hover:text-gray-200 transition-colors">

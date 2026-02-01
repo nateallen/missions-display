@@ -183,4 +183,17 @@ export const mockNewsletters: Newsletter[] = [
     tags: ['leadership', 'training', 'conference'],
     featured: false,
   },
+  {
+    id: 'n19',
+    missionaryId: 'm10',
+    title: 'November/December 2025 Prayer Letter',
+    description: 'Conferences, camps, family updates, and City of Refuge ministry to persecuted peoples',
+    publishDate: new Date('2025-12-31'),
+    pdfUrl: '/newsletters/holmes-nov-dec-2025.pdf',
+    thumbnailUrl: '/newsletters/thumbs/holmes-nov-dec-2025.jpg',
+    fileSize: 418816,
+    pageCount: 1,
+    tags: ['prayer-letter', 'conferences', 'city-of-refuge', 'persecution'],
+    featured: true,
+  },
 ];

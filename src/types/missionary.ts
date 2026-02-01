@@ -4,6 +4,7 @@ export interface Missionary {
   lastName: string;
   fullName: string;
   profilePhoto: string;
+  videoUrl?: string; // YouTube, Vimeo, or other video URL
   bio: string;
   location: MissionaryLocation;
   contact: ContactInfo;
@@ -58,7 +59,6 @@ export interface SocialMediaLinks {
 
 export interface MissionaryMetadata {
   startDate: Date;
-  yearsOfService: number;
   organization?: string;
   ministry: string;
   supportLevel?: 'full' | 'partial' | 'seeking';

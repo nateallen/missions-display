@@ -3,16 +3,18 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import { ArrowLeft, MapPin, Users, Languages, Church, Cloud } from 'lucide-react';
+import { ArrowLeft, MapPin, Users, Languages, Church, Cloud, Clock } from 'lucide-react';
 import { Missionary, Newsletter } from '@/types';
 import { newsletterService } from '@/services';
 import { getCountryInfo } from '@/data/countryData';
 import { useMissionaryStore } from '@/lib/store/useMissionaryStore';
 import { useWeather } from '@/hooks/useWeather';
+import { useLocalTime } from '@/hooks/useLocalTime';
 import MissionaryBio from './MissionaryBio';
 import FamilyInfo from './FamilyInfo';
 import NewsletterList from './NewsletterList';
 import ContactActions from './ContactActions';
+import VideoModal from './VideoModal';
 
 interface MissionaryDetailProps {
   missionary: Missionary;
@@ -24,8 +26,13 @@ export default function MissionaryDetail({ missionary }: MissionaryDetailProps) 
   const [newsletters, setNewsletters] = useState<Newsletter[]>([]);
   const [loading, setLoading] = useState(true);
   const [isPhotoModalOpen, setIsPhotoModalOpen] = useState(false);
+  const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
   const countryInfo = getCountryInfo(missionary.location.country);
   const { weather, loading: weatherLoading } = useWeather(
+    missionary.location.coordinates.latitude,
+    missionary.location.coordinates.longitude
+  );
+  const localTime = useLocalTime(
     missionary.location.coordinates.latitude,
     missionary.location.coordinates.longitude
   );
@@ -110,6 +117,11 @@ export default function MissionaryDetail({ missionary }: MissionaryDetailProps) 
                 {missionary.location.city && `${missionary.location.city}, `}
                 {missionary.location.country}
               </span>
+              <span className="mx-2">•</span>
+              <Clock className="h-5 w-5" />
+              <span>
+                {localTime || 'Loading...'}
+              </span>
             </div>
 
             {/* Country Stats */}
@@ -131,16 +143,21 @@ export default function MissionaryDetail({ missionary }: MissionaryDetailProps) 
               </div>
               <div className="bg-white/10 backdrop-blur-sm rounded-lg p-3">
                 <Cloud className="h-5 w-5 text-white/80 mx-auto mb-1" />
-                <p className="text-xs text-white/70">Weather</p>
                 {weatherLoading ? (
-                  <p className="text-sm font-semibold text-white">Loading...</p>
+                  <div className="text-center">
+                    <p className="text-xs text-white/70">Weather</p>
+                    <p className="text-sm font-semibold text-white">Loading...</p>
+                  </div>
                 ) : weather ? (
                   <div className="text-center">
-                    <p className="text-sm font-semibold text-white">{weather.temp}°F</p>
                     <p className="text-xs text-white/60 capitalize">{weather.description}</p>
+                    <p className="text-sm font-semibold text-white">{weather.temp}°F</p>
                   </div>
                 ) : (
-                  <p className="text-sm text-white/60">N/A</p>
+                  <div className="text-center">
+                    <p className="text-xs text-white/70">Weather</p>
+                    <p className="text-sm text-white/60">N/A</p>
+                  </div>
                 )}
               </div>
             </div>
@@ -153,7 +170,10 @@ export default function MissionaryDetail({ missionary }: MissionaryDetailProps) 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Main Content - Left Column */}
           <div className="lg:col-span-2 space-y-6">
-            <MissionaryBio missionary={missionary} />
+            <MissionaryBio
+              missionary={missionary}
+              onWatchVideo={() => setIsVideoModalOpen(true)}
+            />
             {!loading && <NewsletterList newsletters={newsletters} />}
           </div>
 
@@ -205,6 +225,16 @@ export default function MissionaryDetail({ missionary }: MissionaryDetailProps) 
             </div>
           </div>
         </div>
+      )}
+
+      {/* Video Modal */}
+      {missionary.videoUrl && (
+        <VideoModal
+          isOpen={isVideoModalOpen}
+          onClose={() => setIsVideoModalOpen(false)}
+          videoUrl={missionary.videoUrl}
+          missionaryName={missionary.fullName}
+        />
       )}
     </div>
   );

@@ -1,19 +1,23 @@
 'use client';
 
 import { Missionary } from '@/types';
-import { MapPin, Briefcase, Building2, Calendar } from 'lucide-react';
+import { MapPin, Briefcase, Building2, Calendar, Play } from 'lucide-react';
+import { calculateYearsOfService } from '@/utils/dateUtils';
 
 interface MissionaryBioProps {
   missionary: Missionary;
+  onWatchVideo?: () => void;
 }
 
-export default function MissionaryBio({ missionary }: MissionaryBioProps) {
+export default function MissionaryBio({ missionary, onWatchVideo }: MissionaryBioProps) {
   const formatDate = (date: Date) => {
     return new Date(date).toLocaleDateString('en-US', {
       month: 'long',
       year: 'numeric',
     });
   };
+
+  const yearsOfService = calculateYearsOfService(missionary.metadata.startDate);
 
   return (
     <div className="rounded-xl bg-gray-800 p-6 shadow-lg border border-gray-700">
@@ -68,27 +72,23 @@ export default function MissionaryBio({ missionary }: MissionaryBioProps) {
           <div>
             <p className="text-sm font-medium text-gray-400">On Field Since</p>
             <p className="text-base font-semibold text-white">
-              {formatDate(missionary.metadata.startDate)} ({missionary.metadata.yearsOfService}{' '}
+              {formatDate(missionary.metadata.startDate)} ({yearsOfService}{' '}
               years)
             </p>
           </div>
         </div>
       </div>
 
-      {/* Tags */}
-      {missionary.metadata.tags.length > 0 && (
+      {/* Watch Video Button */}
+      {missionary.videoUrl && onWatchVideo && (
         <div className="mt-6">
-          <p className="text-sm font-medium text-gray-400 mb-2">Ministry Tags</p>
-          <div className="flex flex-wrap gap-2">
-            {missionary.metadata.tags.map((tag) => (
-              <span
-                key={tag}
-                className="inline-block rounded-full bg-gray-600/50 px-3 py-1 text-sm font-medium text-gray-300"
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
+          <button
+            onClick={onWatchVideo}
+            className="w-full flex items-center justify-center gap-3 rounded-lg bg-red-600 px-6 py-4 font-semibold text-white shadow-lg transition-all hover:bg-red-700 hover:scale-[1.02] active:scale-[0.98]"
+          >
+            <Play className="h-6 w-6 fill-white" />
+            <span className="text-lg">Watch Ministry Video</span>
+          </button>
         </div>
       )}
     </div>
