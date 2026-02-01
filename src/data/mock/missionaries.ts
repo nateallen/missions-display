@@ -69,7 +69,6 @@ export const mockMissionaries: Missionary[] = [
     },
     metadata: {
       startDate: new Date('2009-01-01'),
-      yearsOfService: 16,
       organization: 'Faith Baptist Mission International',
       ministry: 'Church Planting & Evangelism',
       supportLevel: 'full',
@@ -83,6 +82,7 @@ export const mockMissionaries: Missionary[] = [
     lastName: 'Anderson',
     fullName: 'Oral & Alicia Anderson',
     profilePhoto: '/images/missionaries/anderson.jpg',
+    videoUrl: 'https://youtu.be/NNrgjNv8yWI',
     bio: 'Gospel preaching and church planting in Jamaica. Our ministry includes Vacation Bible School programs, community outreach, and ongoing church development work. We have experienced God\'s faithfulness through challenges including Hurricane Melissa and continue to see salvation testimonies across the island.',
     location: {
       country: 'Jamaica',
@@ -142,7 +142,6 @@ export const mockMissionaries: Missionary[] = [
     },
     metadata: {
       startDate: new Date('2010-01-01'),
-      yearsOfService: 15,
       organization: 'Faith Baptist Mission International',
       ministry: 'Church Planting & Gospel Preaching',
       supportLevel: 'full',
@@ -198,7 +197,6 @@ export const mockMissionaries: Missionary[] = [
     },
     metadata: {
       startDate: new Date('2015-04-01'),
-      yearsOfService: 10,
       organization: 'Faith Baptist Mission International',
       ministry: 'Evangelism & Missionary Training',
       supportLevel: 'full',
@@ -241,8 +239,7 @@ export const mockMissionaries: Missionary[] = [
       blog: 'https://fbmi.org/missionary/ashcraft',
     },
     metadata: {
-      startDate: new Date('2010-07-08'),
-      yearsOfService: 15,
+      startDate: new Date('1980-07-08'),
       organization: 'Faith Baptist Mission International',
       ministry: 'Church Planting & Gospel Preaching',
       supportLevel: 'full',
@@ -256,6 +253,7 @@ export const mockMissionaries: Missionary[] = [
     lastName: 'Bosje',
     fullName: 'Matt & Katie Belle Bosje',
     profilePhoto: '/images/missionaries/bosje.jpg',
+    videoUrl: 'https://youtu.be/623Fy9AkGT8',
     bio: 'Gospel preaching and church planting in Thailand. Our ministry includes organizing Bible clubs in villages, conducting Christmas outreach events, and providing pastoral leadership at International Baptist Church. We recently hosted a senior saints fellowship (42 attendees) and conducted a Christmas Sunday event reaching 572 people with the Gospel message.',
     location: {
       country: 'Thailand',
@@ -292,7 +290,6 @@ export const mockMissionaries: Missionary[] = [
     },
     metadata: {
       startDate: new Date('2016-01-01'),
-      yearsOfService: 9,
       organization: 'Faith Baptist Mission International',
       ministry: 'Church Planting & Community Outreach',
       supportLevel: 'full',
@@ -306,6 +303,7 @@ export const mockMissionaries: Missionary[] = [
     lastName: 'DeMoville',
     fullName: 'Randy & Kelly DeMoville',
     profilePhoto: '/images/missionaries/demoville.jpg',
+    videoUrl: 'https://youtu.be/KwTpHWz6kjQ',
     bio: 'Church planting and soul-winning in the Philippines. We lead ministry efforts through the International Baptist Church in Dumaguete City, emphasizing evangelism and establishing local churches. Our family has been serving on the field for over 15 years, working with local communities to share the Gospel and make disciples.',
     location: {
       country: 'Philippines',
@@ -378,7 +376,6 @@ export const mockMissionaries: Missionary[] = [
     },
     metadata: {
       startDate: new Date('2008-01-01'),
-      yearsOfService: 17,
       organization: 'Faith Baptist Mission International',
       ministry: 'Church Planting & Soul-Winning',
       supportLevel: 'full',
@@ -422,7 +419,6 @@ export const mockMissionaries: Missionary[] = [
     },
     metadata: {
       startDate: new Date('2010-01-01'),
-      yearsOfService: 15,
       organization: 'Faith Baptist Mission International',
       ministry: 'Church Planting & Pastor Training',
       supportLevel: 'full',
@@ -496,7 +492,6 @@ export const mockMissionaries: Missionary[] = [
     },
     metadata: {
       startDate: new Date('1996-01-01'),
-      yearsOfService: 29,
       organization: 'Faith Baptist Mission International',
       ministry: 'Church Planting & Soul-Winning',
       supportLevel: 'full',
@@ -564,7 +559,6 @@ export const mockMissionaries: Missionary[] = [
     },
     metadata: {
       startDate: new Date('2018-03-10'),
-      yearsOfService: 7,
       organization: 'Faith Baptist Mission International',
       ministry: 'Youth Ministry & Community Outreach',
       supportLevel: 'full',
@@ -578,6 +572,7 @@ export const mockMissionaries: Missionary[] = [
     lastName: 'Holmes',
     fullName: 'Dr. Mark & Sabrina Holmes',
     profilePhoto: '/images/missionaries/holmes.jpeg',
+    videoUrl: 'https://vimeo.com/262807960?fl=pl&fe=cm',
     bio: 'Serving in Nigeria since 2005. Our ministry includes Providence Baptist College & Seminary, Truth Baptist Church, youth camps (S.M.I.T.E.), pastor conferences, Bible clubs, and ministry to persecuted peoples through the "City of Refuge" program. Mark graduated summa cum laude from Hyles-Anderson College in 2000 with a degree in Pastoral Theology.',
     location: {
       country: 'Nigeria',
@@ -644,7 +639,6 @@ export const mockMissionaries: Missionary[] = [
     },
     metadata: {
       startDate: new Date('2005-06-01'),
-      yearsOfService: 20,
       organization: 'Faith Baptist Mission International',
       ministry: 'Seminary & Church Planting',
       supportLevel: 'full',

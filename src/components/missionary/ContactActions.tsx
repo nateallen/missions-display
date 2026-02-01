@@ -69,23 +69,13 @@ export default function ContactActions({ missionary }: ContactActionsProps) {
       <div className="space-y-3 mb-6">
         <div className="flex items-center gap-3 p-3 rounded-lg bg-gray-700/50">
           <Mail className="h-5 w-5 text-gray-400 flex-shrink-0" />
-          <a
-            href={`mailto:${missionary.contact.email}`}
-            className="text-gray-300 hover:text-white hover:underline break-all"
-          >
-            {missionary.contact.email}
-          </a>
+          <span className="text-gray-300">{missionary.contact.email}</span>
         </div>
 
         {missionary.contact.phone && (
           <div className="flex items-center gap-3 p-3 rounded-lg bg-gray-700/50">
             <Phone className="h-5 w-5 text-gray-400 flex-shrink-0" />
-            <a
-              href={`tel:${missionary.contact.phone}`}
-              className="text-gray-300 hover:text-white hover:underline"
-            >
-              {missionary.contact.phone}
-            </a>
+            <span className="text-gray-300">{missionary.contact.phone}</span>
           </div>
         )}
       </div>

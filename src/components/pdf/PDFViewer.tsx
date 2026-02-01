@@ -60,18 +60,11 @@ export default function PDFViewer() {
 
         {/* PDF Content */}
         <div className="flex-1 overflow-auto bg-gray-900">
-          <div className="flex items-center justify-center min-h-full p-8">
-            <div className="text-center">
-              <div className="text-6xl mb-4">📄</div>
-              <h3 className="text-2xl font-bold text-white mb-2">PDF Preview</h3>
-              <p className="text-gray-400 mb-4">
-                PDF viewer integration requires a sample PDF file.
-              </p>
-              <p className="text-sm text-gray-500">
-                In production, this will display the full PDF with page navigation.
-              </p>
-            </div>
-          </div>
+          <iframe
+            src={currentPDFUrl}
+            className="w-full h-full"
+            title={currentNewsletterTitle || 'Newsletter PDF'}
+          />
         </div>
       </div>
     </div>

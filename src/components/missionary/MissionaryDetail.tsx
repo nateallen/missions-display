@@ -14,6 +14,7 @@ import MissionaryBio from './MissionaryBio';
 import FamilyInfo from './FamilyInfo';
 import NewsletterList from './NewsletterList';
 import ContactActions from './ContactActions';
+import VideoModal from './VideoModal';
 
 interface MissionaryDetailProps {
   missionary: Missionary;
@@ -25,6 +26,7 @@ export default function MissionaryDetail({ missionary }: MissionaryDetailProps) 
   const [newsletters, setNewsletters] = useState<Newsletter[]>([]);
   const [loading, setLoading] = useState(true);
   const [isPhotoModalOpen, setIsPhotoModalOpen] = useState(false);
+  const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
   const countryInfo = getCountryInfo(missionary.location.country);
   const { weather, loading: weatherLoading } = useWeather(
     missionary.location.coordinates.latitude,
@@ -168,7 +170,10 @@ export default function MissionaryDetail({ missionary }: MissionaryDetailProps) 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Main Content - Left Column */}
           <div className="lg:col-span-2 space-y-6">
-            <MissionaryBio missionary={missionary} />
+            <MissionaryBio
+              missionary={missionary}
+              onWatchVideo={() => setIsVideoModalOpen(true)}
+            />
             {!loading && <NewsletterList newsletters={newsletters} />}
           </div>
 
@@ -220,6 +225,16 @@ export default function MissionaryDetail({ missionary }: MissionaryDetailProps) 
             </div>
           </div>
         </div>
+      )}
+
+      {/* Video Modal */}
+      {missionary.videoUrl && (
+        <VideoModal
+          isOpen={isVideoModalOpen}
+          onClose={() => setIsVideoModalOpen(false)}
+          videoUrl={missionary.videoUrl}
+          missionaryName={missionary.fullName}
+        />
       )}
     </div>
   );

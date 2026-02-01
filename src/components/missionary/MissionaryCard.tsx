@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { MapPin, Calendar } from 'lucide-react';
 import { Missionary } from '@/types';
+import { calculateYearsOfService } from '@/utils/dateUtils';
 
 interface MissionaryCardProps {
   missionary: Missionary;
@@ -12,6 +13,7 @@ interface MissionaryCardProps {
 
 export default function MissionaryCard({ missionary, variant = 'compact' }: MissionaryCardProps) {
   const router = useRouter();
+  const yearsOfService = calculateYearsOfService(missionary.metadata.startDate);
 
   const handleClick = () => {
     router.push(`/missionary/${missionary.id}`);
@@ -47,33 +49,11 @@ export default function MissionaryCard({ missionary, variant = 'compact' }: Miss
           </span>
         </div>
 
-        <div className="flex items-center gap-2 text-gray-300 mb-2">
+        <div className="flex items-center gap-2 text-gray-300 mb-1">
           <Calendar className="h-3 w-3 lg:h-4 lg:w-4 flex-shrink-0" />
           <span className="text-xs lg:text-sm">
-            {missionary.metadata.yearsOfService} years of service
+            {yearsOfService} years of service
           </span>
-        </div>
-
-        <p className="text-xs lg:text-sm text-gray-100 font-medium mb-1">
-          {missionary.metadata.ministry}
-        </p>
-
-        {variant === 'expanded' && (
-          <p className="text-xs lg:text-sm text-gray-300 line-clamp-3">
-            {missionary.bio}
-          </p>
-        )}
-
-        {/* Tags */}
-        <div className="mt-2 flex flex-wrap gap-1.5">
-          {missionary.metadata.tags.slice(0, 3).map((tag) => (
-            <span
-              key={tag}
-              className="inline-block rounded-full bg-gray-600/50 px-2 py-0.5 text-xs font-medium text-gray-300"
-            >
-              {tag}
-            </span>
-          ))}
         </div>
       </div>
 

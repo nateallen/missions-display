@@ -19,6 +19,7 @@ export default function WorldMap() {
   const [hoveredCountry, setHoveredCountry] = useState<string | null>(null);
   const [hoveredRegion, setHoveredRegion] = useState<string | null>(null);
   const [selectedCountry, setSelectedCountry] = useState<string | null>(null);
+  const [hoveredMissionaryId, setHoveredMissionaryId] = useState<string | null>(null);
 
   const handleGeographyClick = (geo: any) => {
     const countryName = geo.properties.name;
@@ -136,8 +137,41 @@ export default function WorldMap() {
             }
           </Geographies>
 
+          {/* Render all pins first */}
           {filteredMissionaries.map((missionary) => (
-            <MissionaryPin key={missionary.id} missionary={missionary} zoom={zoom} />
+            <MissionaryPin
+              key={missionary.id}
+              missionary={missionary}
+              zoom={zoom}
+              showPinOnly={true}
+              onMouseEnter={() => {
+                setHoveredMissionaryId(missionary.id);
+                setHoveredRegion(missionary.location.regionId);
+              }}
+              onMouseLeave={() => {
+                setHoveredMissionaryId(null);
+                setHoveredRegion(null);
+              }}
+            />
+          ))}
+
+          {/* Then render all tooltips on top */}
+          {filteredMissionaries.map((missionary) => (
+            <MissionaryPin
+              key={`tooltip-${missionary.id}`}
+              missionary={missionary}
+              zoom={zoom}
+              showPinOnly={false}
+              showTooltip={hoveredMissionaryId === missionary.id}
+              onMouseEnter={() => {
+                setHoveredMissionaryId(missionary.id);
+                setHoveredRegion(missionary.location.regionId);
+              }}
+              onMouseLeave={() => {
+                setHoveredMissionaryId(null);
+                setHoveredRegion(null);
+              }}
+            />
           ))}
         </ZoomableGroup>
       </ComposableMap>
