@@ -63,12 +63,13 @@ Add the following secrets to your GitHub repository (Settings → Secrets and va
    - Value: `ubuntu` (for Ubuntu instances)
 
 3. **EC2_SSH_KEY**
-   - Value: Contents of your private key (.pem file)
+   - Value: Contents of your private key (.pem file) in plain text
    - To get the contents:
      ```bash
      cat your-key.pem
      ```
    - Copy the entire output including `-----BEGIN RSA PRIVATE KEY-----` and `-----END RSA PRIVATE KEY-----`
+   - **Important**: Paste the plain text contents directly into GitHub secrets (not base64-encoded)
 
 ## Step 4: Test Deployment
 
