@@ -248,7 +248,7 @@ A multi-tenant SaaS platform for churches to display and manage missionary infor
      - [ ] Search/browse existing missionaries (global + local)
      - [ ] Add global missionaries to supported list
      - [ ] Create/edit local missionary profiles
-     - [ ] Upload missionary photos
+     - [ ] Upload missionary photos (profile photo + cover photo representing country/region)
      - [ ] Manage family members and birthdays
      - [ ] Remove missionaries from display
    - [ ] Newsletter management UI:
@@ -718,8 +718,8 @@ missionaries
   - first_name (string)
   - last_name (string)
   - full_name (string)
-  - profile_photo_url (string)
-  - cover_photo_url (string)
+  - profile_photo_url (string) -- Missionary family photo
+  - cover_photo_url (string) -- Country/region background image representing ministry area
   - bio (text)
   - email (string)
   - phone (string)
