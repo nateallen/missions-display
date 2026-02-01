@@ -78,7 +78,7 @@ export const countryData: Record<string, CountryInfo> = {
     population: '0.4 million',
     language: 'English & Spanish',
     religion: 'Catholic (majority)',
-    backgroundImage: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=1600',
+    backgroundImage: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=1600&q=80',
   },
   Jamaica: {
     name: 'Jamaica',
@@ -86,7 +86,7 @@ export const countryData: Record<string, CountryInfo> = {
     population: '2.8 million',
     language: 'English & Patois',
     religion: 'Protestant (majority)',
-    backgroundImage: 'https://images.unsplash.com/photo-1571406252241-db81c5e2b9c0?w=1600',
+    backgroundImage: 'https://images.unsplash.com/photo-1558862107-d49ef2a04d72?w=1600&q=80',
   },
   'Dominican Republic': {
     name: 'Dominican Republic',
@@ -94,7 +94,7 @@ export const countryData: Record<string, CountryInfo> = {
     population: '11.1 million',
     language: 'Spanish',
     religion: 'Catholic (majority)',
-    backgroundImage: 'https://images.unsplash.com/photo-1552083375-1447ce886485?w=1600',
+    backgroundImage: 'https://images.unsplash.com/photo-1609137144813-7d9921338f24?w=1600&q=80',
   },
   Thailand: {
     name: 'Thailand',
@@ -102,7 +102,7 @@ export const countryData: Record<string, CountryInfo> = {
     population: '71.6 million',
     language: 'Thai',
     religion: 'Buddhism (majority)',
-    backgroundImage: 'https://images.unsplash.com/photo-1563492065213-e5d4b5de2ead?w=1600',
+    backgroundImage: 'https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=1600&q=80',
   },
   Argentina: {
     name: 'Argentina',
@@ -110,7 +110,7 @@ export const countryData: Record<string, CountryInfo> = {
     population: '46.2 million',
     language: 'Spanish',
     religion: 'Catholic (majority)',
-    backgroundImage: 'https://images.unsplash.com/photo-1621799807230-9316d76d4416?w=1600',
+    backgroundImage: 'https://images.unsplash.com/photo-1589909202802-8f4aadce1849?w=1600&q=80',
   },
   'El Salvador': {
     name: 'El Salvador',
@@ -118,7 +118,7 @@ export const countryData: Record<string, CountryInfo> = {
     population: '6.3 million',
     language: 'Spanish',
     religion: 'Catholic (majority)',
-    backgroundImage: 'https://images.unsplash.com/photo-1569246741990-dea69c6ea9e8?w=1600',
+    backgroundImage: 'https://images.unsplash.com/photo-1564221710304-0b37c8b9d729?w=1600&q=80',
   },
   Nigeria: {
     name: 'Nigeria',
@@ -126,7 +126,7 @@ export const countryData: Record<string, CountryInfo> = {
     population: '223.8 million',
     language: 'English & Hausa',
     religion: 'Muslim & Christian',
-    backgroundImage: 'https://images.unsplash.com/photo-1599061524586-a47c83ba8c85?w=1600',
+    backgroundImage: 'https://images.unsplash.com/photo-1584474936933-1b5a8c8b3bf8?w=1600&q=80',
   },
 };
 
