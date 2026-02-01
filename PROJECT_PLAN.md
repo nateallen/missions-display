@@ -114,29 +114,29 @@ A multi-tenant SaaS platform for churches to display and manage missionary infor
 - **PDF Viewing**: react-pdf ✅
 - **QR Codes**: qrcode.react ✅
 
-### Backend (To Be Implemented)
-**Options to Consider**:
+### Backend - Phased Approach ✅ DECISION MADE
 
-**Option 1: Java/Micronaut on EC2**
-- ✅ Familiar tech stack
-- ✅ Robust for enterprise apps
-- ⚠️ Higher operational overhead
-- ⚠️ EC2 management complexity
+**Phase 2A: POC/MVP (Next.js API Routes)**
+- ✅ Fastest time to market
+- ✅ Single codebase deployment
+- ✅ TypeScript throughout
+- ✅ Zero infrastructure management
+- ✅ Perfect for validation
+- ⚠️ Will need migration if successful
 
-**Option 2: Node.js/NestJS (Recommended)**
-- ✅ TypeScript consistency with frontend
-- ✅ Easier developer context switching
-- ✅ Can deploy to AWS Lambda or EC2
-- ✅ Large ecosystem for integrations
-- ✅ Better Vercel integration options
+**Phase 2B: Scale (NestJS Migration - When Needed)**
+- Migrate when: 50+ customers, complex jobs, or team growth
+- ✅ Enterprise-grade structure
+- ✅ Better for large teams
+- ✅ Built-in patterns for auth, permissions, queues
+- ✅ Reuse Prisma models and database
 
-**Option 3: Next.js API Routes + Serverless**
-- ✅ Simplest architecture
-- ✅ Built into existing Next.js app
-- ✅ Vercel-native deployment
-- ⚠️ May need separate service for complex operations
-
-**Recommendation**: Start with Next.js API Routes for MVP, migrate to NestJS backend if scaling requires it.
+**Migration Strategy**:
+1. Write clean service layers from day 1
+2. Keep all database logic in service files
+3. Use middleware patterns for auth
+4. When ready, lift-and-shift services to NestJS
+5. Database schema stays the same
 
 ### Database
 - **Primary**: AWS RDS (PostgreSQL recommended)
@@ -202,34 +202,91 @@ A multi-tenant SaaS platform for churches to display and manage missionary infor
 
 ---
 
-### 🔄 Phase 2: Backend Foundation & Authentication (NEXT)
-**Goal**: Build backend infrastructure and user authentication
+### 🔄 Phase 2A: POC Backend with Next.js API Routes (CURRENT)
+**Goal**: Build MVP backend for validation
+**Timeline**: 6-8 weeks
+**Approach**: Next.js API Routes + Prisma + PostgreSQL
+
+**Tech Stack for POC**:
+- Backend: Next.js API Routes (same codebase as frontend)
+- Database: Vercel Postgres (or AWS RDS for production)
+- ORM: Prisma (can reuse with NestJS later)
+- Auth: Auth0 (or Clerk for faster setup)
+- File Storage: Vercel Blob (or AWS S3)
+- Deployment: Vercel (zero config)
 
 **Tasks**:
-1. **Backend Setup**
-   - [ ] Choose backend framework (Next.js API + Prisma recommended)
-   - [ ] Set up AWS RDS PostgreSQL database
-   - [ ] Design database schema (see schema section below)
-   - [ ] Set up Prisma ORM
-   - [ ] Create API structure and endpoints
+1. **Week 1-2: Database & Auth**
+   - [ ] Set up Vercel Postgres or AWS RDS
+   - [ ] Design and implement Prisma schema
+   - [ ] Configure Auth0/Clerk
+   - [ ] Create auth middleware for API routes
+   - [ ] Define user roles (Super Admin, Org Admin, Manager, Editor)
 
-2. **Authentication & Authorization**
-   - [ ] Configure Auth0
-   - [ ] Implement Auth0 organizations for churches
-   - [ ] Define user roles and permissions
-   - [ ] Create protected API routes
-   - [ ] Add login/signup flows
+2. **Week 3-4: Core APIs with Service Layer Pattern**
+   - [ ] Create service files (keep logic separate from routes)
+   - [ ] Organizations CRUD service + API routes
+   - [ ] Users CRUD service + API routes
+   - [ ] Missionaries CRUD service + API routes
+   - [ ] Implement proper error handling
+   - [ ] Add request validation (Zod)
 
-3. **Core Data Models**
-   - [ ] Organizations (churches)
-   - [ ] Users with roles
-   - [ ] Missionaries (global + local)
-   - [ ] Newsletters
-   - [ ] Relationships between entities
+3. **Week 5-6: File Upload & Advanced Features**
+   - [ ] File upload to Vercel Blob or S3
+   - [ ] Newsletter PDF upload and storage
+   - [ ] Image optimization
+   - [ ] Missionary search endpoint
+   - [ ] Global vs local missionary logic
 
-**Questions**:
-- Should we use Prisma or raw SQL for database access?
-- What user roles do we need initially? (Suggested: Super Admin, Org Admin, Missionary Manager, Newsletter Editor)
+4. **Week 7-8: Dashboard UI & Testing**
+   - [ ] Build church admin dashboard UI
+   - [ ] Missionary management forms
+   - [ ] Newsletter upload UI
+   - [ ] Basic user management
+   - [ ] Integration testing
+
+**Best Practices for Easy Migration**:
+```typescript
+// ✅ Do this - separate service layer
+// services/missionary.service.ts
+export const missionaryService = {
+  async getAll(orgId: string) {
+    return prisma.missionary.findMany({ where: { organizationId: orgId } });
+  },
+  async create(data: CreateMissionaryDto) {
+    return prisma.missionary.create({ data });
+  },
+};
+
+// app/api/missionaries/route.ts
+import { missionaryService } from '@/services/missionary.service';
+export async function GET(req: Request) {
+  const orgId = await getOrgIdFromAuth(req);
+  const missionaries = await missionaryService.getAll(orgId);
+  return Response.json(missionaries);
+}
+```
+
+---
+
+### Phase 2B: Optional NestJS Migration (When Needed)
+**Triggers for Migration**:
+- 50+ church customers
+- Complex background jobs (email queues, etc.)
+- Team grows beyond solo developer
+- API response times become an issue
+
+**Migration Process**:
+1. Create new NestJS project
+2. Copy Prisma schema (no changes needed)
+3. Lift service layer code to NestJS services
+4. Implement NestJS controllers (similar to API routes)
+5. Add Guards for auth (replace middleware)
+6. Deploy NestJS to EC2/ECS/Railway
+7. Update frontend to point to new API
+8. Keep database the same (zero downtime)
+
+**Estimated Migration Time**: 2-3 weeks
 
 ---
 
