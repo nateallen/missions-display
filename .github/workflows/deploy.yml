@@ -34,27 +34,13 @@ jobs:
           mkdir -p ~/.ssh
           ssh-keyscan -H $EC2_HOST >> ~/.ssh/known_hosts
 
+          # Test SSH connection first
+          echo "Testing SSH connection..."
+          ssh -v -i ec2_key.pem -o StrictHostKeyChecking=no -o ServerAliveInterval=60 -o ServerAliveCountMax=10 $EC2_USER@$EC2_HOST "echo 'SSH connection successful!'"
+
           # Deploy to EC2
-          ssh -v -i ec2_key.pem -o ServerAliveInterval=60 -o ServerAliveCountMax=10 $EC2_USER@$EC2_HOST << 'EOF'
-            set -e
-
-            # Navigate to app directory
-            cd /home/ubuntu/missions-display || exit 1
-
-            # Pull latest code
-            git pull origin main
-
-            # Install dependencies
-            npm ci --production=false
-
-            # Build the application
-            npm run build
-
-            # Restart the application using PM2
-            pm2 restart missions-display || pm2 start npm --name "missions-display" -- start
-
-            echo "Deployment successful!"
-          EOF
+          echo "Deploying application..."
+          ssh -i ec2_key.pem -o StrictHostKeyChecking=no -o ServerAliveInterval=60 -o ServerAliveCountMax=10 $EC2_USER@$EC2_HOST "cd /home/ubuntu/missions-display && git pull origin main && npm ci --production=false && npm run build && pm2 restart missions-display || pm2 start npm --name 'missions-display' -- start && echo 'Deployment successful!'"
 
           # Clean up
           rm -f ec2_key.pem
