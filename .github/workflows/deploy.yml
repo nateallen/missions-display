@@ -21,8 +21,8 @@ jobs:
           EC2_USER: ${{ secrets.EC2_USER }}
           EC2_SSH_KEY: ${{ secrets.EC2_SSH_KEY }}
         run: |
-          # Create SSH key file
-          echo "$EC2_SSH_KEY" > ec2_key.pem
+          # Create SSH key file from base64-encoded secret
+          echo "$EC2_SSH_KEY" | base64 -d > ec2_key.pem
           chmod 600 ec2_key.pem
 
           # Create .ssh directory and add EC2 to known hosts
