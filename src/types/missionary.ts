@@ -4,7 +4,6 @@ export interface Missionary {
   lastName: string;
   fullName: string;
   profilePhoto: string;
-  coverPhoto?: string;
   bio: string;
   location: MissionaryLocation;
   contact: ContactInfo;
