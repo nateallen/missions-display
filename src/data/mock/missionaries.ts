@@ -8,8 +8,7 @@ export const mockMissionaries: Missionary[] = [
     firstName: 'Israel',
     lastName: 'Alvarez',
     fullName: 'Israel & Tonya Alvarez',
-    profilePhoto: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=400&fit=crop&crop=faces',
-    // Real photo: https://www.fbmi.org/media/2016/09/alvarez2-e1673623773937.png
+    profilePhoto: 'https://fbmi.org/media/2016/09/alvarez2-e1673623773937.png',
     bio: 'Serving in Belize since 2009 as church planters and evangelists. Our ministry focuses on establishing and growing churches, leading people to faith, conducting outreach programs, hosting medical missions, operating kids\' clubs, and providing discipleship training. We celebrated our 16th church anniversary with 192 attendees and approximately 250 conversions during a medical outreach mission.',
     location: {
       country: 'Belize',
@@ -83,7 +82,7 @@ export const mockMissionaries: Missionary[] = [
     firstName: 'Oral',
     lastName: 'Anderson',
     fullName: 'Oral & Alicia Anderson',
-    profilePhoto: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=faces',
+    profilePhoto: 'https://fbmi.org/media/2016/09/Anderson-Oral-1.jpg',
     bio: 'Gospel preaching and church planting in Jamaica. Our ministry includes Vacation Bible School programs, community outreach, and ongoing church development work. We have experienced God\'s faithfulness through challenges including Hurricane Melissa and continue to see salvation testimonies across the island.',
     location: {
       country: 'Jamaica',
@@ -156,7 +155,7 @@ export const mockMissionaries: Missionary[] = [
     firstName: 'Caleb',
     lastName: 'Amoros',
     fullName: 'Caleb & Abby Amoros',
-    profilePhoto: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=faces',
+    profilePhoto: 'https://fbmi.org/media/2023/11/Caleb-Amoros-Family-2025.jpg',
     bio: 'Evangelistic work and missionary training across Latin America. We conduct citywide evangelistic campaigns and host annual Gospel Crusades reaching thousands with the Gospel. Our recent Dominican Republic crusade reached approximately 2,000 souls with over half making a public profession to accept Christ. We serve globally with focus on Mexico, Dominican Republic, Haiti, Brazil, Honduras, and El Salvador.',
     location: {
       country: 'Dominican Republic',
@@ -212,8 +211,7 @@ export const mockMissionaries: Missionary[] = [
     firstName: 'Tommy',
     lastName: 'Ashcraft',
     fullName: 'Tommy & Emily Ashcraft',
-    profilePhoto: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=400&fit=crop&crop=faces',
-    // Real photo: https://www.fbmi.org/media/2016/09/2020-Ashcraft-Picture-900x600.jpg
+    profilePhoto: 'https://fbmi.org/media/2016/09/2020-Ashcraft-Picture.jpg',
     bio: 'Gospel preaching and church planting in Mexico. Our ministry focuses on establishing Gospel-preaching churches actively multiplying across Mexico. Recent ministry includes international trips to the Philippines (1,600+ delegates, 452 churches represented) and continued work in Chihuahua, Mexico with ongoing soul-winning efforts.',
     location: {
       country: 'Mexico',
@@ -257,7 +255,7 @@ export const mockMissionaries: Missionary[] = [
     firstName: 'Matt',
     lastName: 'Bosje',
     fullName: 'Matt & Katie Belle Bosje',
-    profilePhoto: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=faces',
+    profilePhoto: 'https://fbmi.org/media/2023/08/Bosje-Matthew-2.jpg',
     bio: 'Gospel preaching and church planting in Thailand. Our ministry includes organizing Bible clubs in villages, conducting Christmas outreach events, and providing pastoral leadership at International Baptist Church. We recently hosted a senior saints fellowship (42 attendees) and conducted a Christmas Sunday event reaching 572 people with the Gospel message.',
     location: {
       country: 'Thailand',
@@ -307,7 +305,7 @@ export const mockMissionaries: Missionary[] = [
     firstName: 'Randy',
     lastName: 'DeMoville',
     fullName: 'Randy & Kelly DeMoville',
-    profilePhoto: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=faces',
+    profilePhoto: 'https://fbmi.org/media/2016/09/DeMoville-Randy.jpg',
     bio: 'Church planting and soul-winning in the Philippines. We lead ministry efforts through the International Baptist Church in Dumaguete City, emphasizing evangelism and establishing local churches. Our family has been serving on the field for over 15 years, working with local communities to share the Gospel and make disciples.',
     location: {
       country: 'Philippines',
@@ -393,7 +391,7 @@ export const mockMissionaries: Missionary[] = [
     firstName: 'Zach',
     lastName: 'Foust',
     fullName: 'Zach & Karin Foust',
-    profilePhoto: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=400&fit=crop&crop=faces',
+    profilePhoto: 'https://fbmi.org/media/2016/09/Foust-Zach-Sr.jpg',
     bio: 'Church planting and pastor training in Peru. Our ministry includes operating Escuela de Pastores (pastor training school), conducting youth revival services, Christian education, and soul-winning initiatives across Peru and South America. I began ministry to migrant workers seeing 92 trust Christ the first day, and have taught at City Baptist Schools for 15 years while providing Spanish translation services.',
     location: {
       country: 'Peru',
@@ -437,7 +435,7 @@ export const mockMissionaries: Missionary[] = [
     firstName: 'Brian',
     lastName: 'George',
     fullName: 'Brian & Liesl George',
-    profilePhoto: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=faces',
+    profilePhoto: 'https://fbmi.org/media/2016/09/2020-Brian-George-Family.jpg',
     bio: 'Fundamental Baptist missionaries serving in Argentina since 1996. Our ministry focuses on church planting and soul-winning with emphasis on Fundamental, Soul-winning, Separated, KJV, Local Church principles. Our motto is "By Faith, Let\'s Go Forward." We work with indigenous communities and urban areas in Tucumán province.',
     location: {
       country: 'Argentina',
@@ -511,7 +509,7 @@ export const mockMissionaries: Missionary[] = [
     firstName: 'Daniel',
     lastName: 'Gonzalez',
     fullName: 'Daniel & Megan Gonzalez',
-    profilePhoto: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=faces',
+    profilePhoto: 'https://fbmi.org/media/2018/08/Gonzalez-Daniel-1.jpg',
     bio: 'Ministry in El Salvador focused on Bible clubs, teen camps, public school outreach, and bus ministry. We conduct Thursday morning chapels targeting orphan girls and have seen 60-70 conversions since launch. Our work includes community outreach, discipleship programs, and sharing the Gospel with young people across El Salvador.',
     location: {
       country: 'El Salvador',
@@ -579,8 +577,7 @@ export const mockMissionaries: Missionary[] = [
     firstName: 'Mark',
     lastName: 'Holmes',
     fullName: 'Dr. Mark & Sabrina Holmes',
-    profilePhoto: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=400&fit=crop&crop=faces',
-    // Real photo: https://fbmi.org/media/2016/09/Holmes-Mark.jpeg
+    profilePhoto: 'https://fbmi.org/media/2016/09/Holmes-Mark.jpeg',
     bio: 'Serving in Nigeria since 2005. Our ministry includes Providence Baptist College & Seminary, Truth Baptist Church, youth camps (S.M.I.T.E.), pastor conferences, Bible clubs, and ministry to persecuted peoples through the "City of Refuge" program. Mark graduated summa cum laude from Hyles-Anderson College in 2000 with a degree in Pastoral Theology.',
     location: {
       country: 'Nigeria',
