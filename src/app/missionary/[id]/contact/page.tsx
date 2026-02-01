@@ -2,6 +2,7 @@
 
 import { useParams } from 'next/navigation';
 import { useMissionaries } from '@/hooks/useMissionaries';
+import Image from 'next/image';
 import { Mail, Phone, Cake, Users, Facebook, Instagram, Twitter, Youtube, Globe, Download } from 'lucide-react';
 import LoadingSpinner from '@/components/shared/LoadingSpinner';
 import { Missionary } from '@/types';
@@ -21,6 +22,13 @@ function generateVCard(missionary: Missionary): string {
 
   vcard.push(`ORG:Lighthouse Baptist Church`);
   vcard.push(`TITLE:Missionary`);
+
+  // Add photo
+  const photoUrl = missionary.profilePhoto.startsWith('http')
+    ? missionary.profilePhoto
+    : `${typeof window !== 'undefined' ? window.location.origin : ''}${missionary.profilePhoto}`;
+  vcard.push(`PHOTO;VALUE=uri:${photoUrl}`);
+
   vcard.push(`NOTE:${missionary.bio.replace(/\n/g, '\\n')}`);
 
   // Add family birthdays as X- properties
@@ -108,6 +116,18 @@ export default function MissionaryContactPage() {
       <div className="mx-auto max-w-2xl">
         {/* Header */}
         <div className="mb-6 text-center">
+          {/* Profile Photo */}
+          <div className="mb-4 flex justify-center">
+            <div className="relative h-32 w-32 rounded-full overflow-hidden border-4 border-gray-700 shadow-xl">
+              <Image
+                src={missionary.profilePhoto}
+                alt={missionary.fullName}
+                fill
+                className="object-cover"
+              />
+            </div>
+          </div>
+
           <h1 className="text-3xl font-bold text-white mb-2">{missionary.fullName}</h1>
           <p className="text-lg text-gray-300">Missionary</p>
           <p className="text-sm text-gray-400 mt-1">
