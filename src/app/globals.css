@@ -1,0 +1,80 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --touch-target-min: 44px;
+
+    --spacing-1080p: 1rem;
+    --spacing-4k: 1.5rem;
+    --spacing-8k: 2rem;
+
+    --text-base-1080p: 16px;
+    --text-base-4k: 24px;
+    --text-base-8k: 32px;
+  }
+
+  * {
+    @apply border-gray-700;
+  }
+
+  body {
+    @apply bg-gray-900 text-gray-100;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+@layer components {
+  .btn-touch {
+    @apply min-h-[44px] min-w-[44px] px-6 py-3 text-lg rounded-lg;
+    @apply active:scale-95 transition-transform;
+    @apply select-none touch-manipulation;
+  }
+
+  .card-touch {
+    @apply p-6 rounded-xl shadow-lg cursor-pointer;
+    @apply transition-all duration-200;
+    @apply hover:shadow-xl hover:scale-[1.02];
+    @apply active:scale-[0.98];
+    @apply select-none touch-manipulation;
+  }
+
+  .touch-area {
+    @apply relative;
+  }
+
+  .touch-area::after {
+    content: '';
+    @apply absolute inset-0;
+    @apply min-h-[44px] min-w-[44px];
+    @apply -m-2;
+  }
+
+  .kiosk-mode {
+    @apply select-none;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+  }
+}
+
+@media (min-width: 3840px) {
+  :root {
+    font-size: var(--text-base-4k);
+  }
+}
+
+@media (min-width: 7680px) {
+  :root {
+    font-size: var(--text-base-8k);
+  }
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
