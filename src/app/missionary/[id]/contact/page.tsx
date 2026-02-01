@@ -2,14 +2,55 @@
 
 import { useParams } from 'next/navigation';
 import { useMissionaries } from '@/hooks/useMissionaries';
-import { Mail, Phone, Cake, Users, Facebook, Instagram, Twitter, Youtube, Globe } from 'lucide-react';
+import { Mail, Phone, Cake, Users, Facebook, Instagram, Twitter, Youtube, Globe, Download } from 'lucide-react';
 import LoadingSpinner from '@/components/shared/LoadingSpinner';
+import { Missionary } from '@/types';
+
+function generateVCard(missionary: Missionary): string {
+  const vcard = [
+    'BEGIN:VCARD',
+    'VERSION:3.0',
+    `FN:${missionary.fullName}`,
+    `N:${missionary.lastName};${missionary.firstName};;;`,
+    `EMAIL:${missionary.contact.email}`,
+  ];
+
+  if (missionary.contact.phone) {
+    vcard.push(`TEL:${missionary.contact.phone}`);
+  }
+
+  vcard.push(`ORG:Lighthouse Baptist Church;${missionary.metadata.organization}`);
+  vcard.push(`TITLE:Missionary - ${missionary.metadata.ministry}`);
+  vcard.push(`NOTE:${missionary.bio.replace(/\n/g, '\\n')}`);
+
+  if (missionary.socialMedia.blog) {
+    vcard.push(`URL:${missionary.socialMedia.blog}`);
+  }
+
+  vcard.push('END:VCARD');
+  return vcard.join('\n');
+}
 
 export default function MissionaryContactPage() {
   const params = useParams();
   const { missionaries, isLoading } = useMissionaries();
 
   const missionary = missionaries.find((m) => m.id === params.id);
+
+  const handleDownloadContact = () => {
+    if (!missionary) return;
+
+    const vcard = generateVCard(missionary);
+    const blob = new Blob([vcard], { type: 'text/vcard' });
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `${missionary.fullName.replace(/\s+/g, '_')}.vcf`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    window.URL.revokeObjectURL(url);
+  };
 
   if (isLoading) {
     return (
@@ -48,6 +89,15 @@ export default function MissionaryContactPage() {
             {missionary.location.city}, {missionary.location.country}
           </p>
           <p className="text-sm text-gray-400 mt-1">{missionary.metadata.ministry}</p>
+
+          {/* Download Contact Button */}
+          <button
+            onClick={handleDownloadContact}
+            className="mt-4 inline-flex items-center gap-2 rounded-lg bg-blue-600 px-6 py-3 text-white font-semibold hover:bg-blue-700 active:scale-95 transition-all shadow-lg"
+          >
+            <Download className="h-5 w-5" />
+            Save to Contacts
+          </button>
         </div>
 
         {/* Contact Information */}
