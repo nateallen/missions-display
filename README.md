@@ -1,6 +1,6 @@
 # Missions Display
 
-Interactive missions display system for churches with touch screen kiosk interface.
+Interactive missions display system for churches with touch screen kiosk interface. Sample Data for Now.
 
 ## Features
 
