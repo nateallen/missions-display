@@ -3,11 +3,12 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import { ArrowLeft, MapPin, Users, Languages, Church } from 'lucide-react';
+import { ArrowLeft, MapPin, Users, Languages, Church, Cloud } from 'lucide-react';
 import { Missionary, Newsletter } from '@/types';
 import { newsletterService } from '@/services';
 import { getCountryInfo } from '@/data/countryData';
 import { useMissionaryStore } from '@/lib/store/useMissionaryStore';
+import { useWeather } from '@/hooks/useWeather';
 import MissionaryBio from './MissionaryBio';
 import FamilyInfo from './FamilyInfo';
 import NewsletterList from './NewsletterList';
@@ -22,7 +23,12 @@ export default function MissionaryDetail({ missionary }: MissionaryDetailProps) 
   const { clearFilters } = useMissionaryStore();
   const [newsletters, setNewsletters] = useState<Newsletter[]>([]);
   const [loading, setLoading] = useState(true);
+  const [isPhotoModalOpen, setIsPhotoModalOpen] = useState(false);
   const countryInfo = getCountryInfo(missionary.location.country);
+  const { weather, loading: weatherLoading } = useWeather(
+    missionary.location.coordinates.latitude,
+    missionary.location.coordinates.longitude
+  );
 
   const handleBack = () => {
     clearFilters();
@@ -76,8 +82,12 @@ export default function MissionaryDetail({ missionary }: MissionaryDetailProps) 
         <div className="absolute inset-0 flex flex-col items-center justify-center pt-8">
           {/* Photo */}
           <div className="relative mb-6">
-            <div className="w-64 h-64 md:w-80 md:h-80 rounded-full bg-white/30 p-1 shadow-2xl">
-              <div className="relative w-full h-full rounded-full overflow-hidden">
+            <button
+              onClick={() => setIsPhotoModalOpen(true)}
+              className="w-[22rem] h-64 md:w-[28rem] md:h-80 rounded-lg bg-white/30 p-1 shadow-2xl hover:bg-white/40 transition-colors cursor-pointer"
+              aria-label="View full size photo"
+            >
+              <div className="relative w-full h-full rounded-lg overflow-hidden">
                 <Image
                   src={missionary.profilePhoto}
                   alt={missionary.fullName}
@@ -86,7 +96,7 @@ export default function MissionaryDetail({ missionary }: MissionaryDetailProps) 
                   priority
                 />
               </div>
-            </div>
+            </button>
           </div>
 
           {/* Name and Location */}
@@ -103,7 +113,7 @@ export default function MissionaryDetail({ missionary }: MissionaryDetailProps) 
             </div>
 
             {/* Country Stats */}
-            <div className="grid grid-cols-3 gap-4 max-w-2xl mx-auto">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto">
               <div className="bg-white/10 backdrop-blur-sm rounded-lg p-3">
                 <Users className="h-5 w-5 text-white/80 mx-auto mb-1" />
                 <p className="text-xs text-white/70">Population</p>
@@ -118,6 +128,20 @@ export default function MissionaryDetail({ missionary }: MissionaryDetailProps) 
                 <Church className="h-5 w-5 text-white/80 mx-auto mb-1" />
                 <p className="text-xs text-white/70">Religion</p>
                 <p className="text-sm font-semibold text-white">{countryInfo.religion}</p>
+              </div>
+              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-3">
+                <Cloud className="h-5 w-5 text-white/80 mx-auto mb-1" />
+                <p className="text-xs text-white/70">Weather</p>
+                {weatherLoading ? (
+                  <p className="text-sm font-semibold text-white">Loading...</p>
+                ) : weather ? (
+                  <div className="text-center">
+                    <p className="text-sm font-semibold text-white">{weather.temp}°F</p>
+                    <p className="text-xs text-white/60 capitalize">{weather.description}</p>
+                  </div>
+                ) : (
+                  <p className="text-sm text-white/60">N/A</p>
+                )}
               </div>
             </div>
           </div>
@@ -140,6 +164,48 @@ export default function MissionaryDetail({ missionary }: MissionaryDetailProps) 
           </div>
         </div>
       </div>
+
+      {/* Photo Modal */}
+      {isPhotoModalOpen && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4"
+          onClick={() => setIsPhotoModalOpen(false)}
+        >
+          <div className="relative max-w-5xl max-h-[90vh] w-full h-full">
+            <button
+              onClick={() => setIsPhotoModalOpen(false)}
+              className="absolute top-4 right-4 rounded-full bg-white/90 backdrop-blur-sm p-3 text-gray-900 shadow-lg hover:bg-white transition-all z-10"
+              aria-label="Close"
+            >
+              <svg
+                className="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+            <div
+              className="relative w-full h-full"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <Image
+                src={missionary.profilePhoto}
+                alt={missionary.fullName}
+                fill
+                className="object-contain"
+                sizes="(max-width: 1280px) 100vw, 1280px"
+              />
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

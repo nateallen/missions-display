@@ -1,8 +1,10 @@
 'use client';
 
-import { Globe, RotateCcw, ChevronRight, ChevronLeft } from 'lucide-react';
+import Image from 'next/image';
+import { RotateCcw, ChevronRight, ChevronLeft } from 'lucide-react';
 import { useMapStore } from '@/lib/store/useMapStore';
 import { useMissionaryStore } from '@/lib/store/useMissionaryStore';
+import { useOrganizationStore } from '@/lib/store/useOrganizationStore';
 
 interface HeaderProps {
   showPanel?: boolean;
@@ -12,6 +14,7 @@ interface HeaderProps {
 export default function Header({ showPanel = true, onTogglePanel }: HeaderProps) {
   const { resetMap } = useMapStore();
   const { filteredMissionaries, clearFilters } = useMissionaryStore();
+  const { organization } = useOrganizationStore();
 
   const handleReset = () => {
     resetMap();
@@ -24,11 +27,17 @@ export default function Header({ showPanel = true, onTogglePanel }: HeaderProps)
         <div className="flex items-center justify-between">
           {/* Logo/Title */}
           <div className="flex items-center gap-3">
-            <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-gradient-to-br from-gray-600 to-gray-700">
-              <Globe className="h-7 w-7 text-white" />
+            <div className="relative h-12 w-12 flex items-center justify-center">
+              <Image
+                src={organization.logoUrl}
+                alt={organization.name}
+                width={48}
+                height={48}
+                className="object-contain"
+              />
             </div>
             <div>
-              <h1 className="text-2xl font-bold text-white">Missions Display</h1>
+              <h1 className="text-2xl font-bold text-white">{organization.name}</h1>
               <p className="text-sm text-gray-400">
                 {filteredMissionaries.length}{' '}
                 {filteredMissionaries.length === 1 ? 'Missionary' : 'Missionaries'}
@@ -49,9 +58,12 @@ export default function Header({ showPanel = true, onTogglePanel }: HeaderProps)
             {onTogglePanel && (
               <button
                 onClick={onTogglePanel}
-                className="flex items-center justify-center rounded-lg bg-gray-700 p-3 text-gray-200 hover:bg-gray-600 transition-colors touch-manipulation active:scale-95"
+                className="flex items-center gap-2 rounded-lg bg-gray-700 px-4 py-3 text-gray-200 hover:bg-gray-600 transition-colors touch-manipulation active:scale-95"
                 aria-label={showPanel ? 'Hide panel' : 'Show panel'}
               >
+                <span className="text-sm font-medium">
+                  {showPanel ? 'Hide Panel' : 'Show Panel'}
+                </span>
                 {showPanel ? (
                   <ChevronRight className="h-5 w-5" />
                 ) : (

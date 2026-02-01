@@ -22,7 +22,7 @@ export default function MissionaryCarousel() {
 
   return (
     <div className="h-full w-full overflow-y-auto">
-      <div className="flex flex-col gap-4 p-4">
+      <div className="flex flex-col gap-3 p-3">
         {filteredMissionaries.map((missionary) => (
           <MissionaryCard key={missionary.id} missionary={missionary} variant="compact" />
         ))}

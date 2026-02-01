@@ -1,23 +1,24 @@
 'use client';
 
-import { Mail, Phone, MessageSquare, Bell, Facebook, Instagram, Twitter, Youtube, Globe } from 'lucide-react';
+import { Mail, Phone, MessageSquare, Bell, Facebook, Instagram, Twitter, Youtube, Globe, QrCode } from 'lucide-react';
 import { Missionary } from '@/types';
 import { useUIStore } from '@/lib/store/useUIStore';
+import { QRCodeSVG } from 'qrcode.react';
+import { useState } from 'react';
 
 interface ContactActionsProps {
   missionary: Missionary;
 }
 
 export default function ContactActions({ missionary }: ContactActionsProps) {
-  const { openEmailForm, openSubscribeForm } = useUIStore();
-
-  const handleEmail = () => {
-    openEmailForm();
-  };
+  const { openSubscribeForm } = useUIStore();
+  const [showQR, setShowQR] = useState(false);
 
   const handleSubscribe = () => {
     openSubscribeForm();
   };
+
+  const contactUrl = `${typeof window !== 'undefined' ? window.location.origin : ''}/missionary/${missionary.id}/contact`;
 
   const socialLinks = [
     { icon: Facebook, url: missionary.socialMedia.facebook, label: 'Facebook' },
@@ -33,13 +34,27 @@ export default function ContactActions({ missionary }: ContactActionsProps) {
 
       {/* Primary Actions */}
       <div className="grid grid-cols-1 gap-3 mb-6">
-        <button
-          onClick={handleEmail}
-          className="flex items-center justify-center gap-3 rounded-lg bg-gray-600 px-6 py-4 text-white font-semibold transition-all hover:bg-gray-500 active:scale-95 touch-manipulation shadow-md hover:shadow-lg"
-        >
-          <Mail className="h-5 w-5" />
-          Send Email
-        </button>
+        {/* QR Code Section */}
+        <div className="rounded-lg bg-gray-700/30 p-4">
+          <button
+            onClick={() => setShowQR(!showQR)}
+            className="flex items-center justify-center gap-3 rounded-lg bg-gray-600 px-6 py-3 text-white font-semibold transition-all hover:bg-gray-500 active:scale-95 touch-manipulation shadow-md hover:shadow-lg w-full"
+          >
+            <QrCode className="h-5 w-5" />
+            {showQR ? 'Hide' : 'Show'} Contact QR Code
+          </button>
+
+          {showQR && (
+            <div className="mt-4 flex flex-col items-center">
+              <div className="bg-white p-4 rounded-lg">
+                <QRCodeSVG value={contactUrl} size={200} level="H" />
+              </div>
+              <p className="text-sm text-gray-400 mt-3 text-center">
+                Scan to view mobile-friendly contact info
+              </p>
+            </div>
+          )}
+        </div>
 
         <button
           onClick={handleSubscribe}
@@ -81,19 +96,16 @@ export default function ContactActions({ missionary }: ContactActionsProps) {
           <h3 className="text-lg font-semibold text-white mb-3">Follow on Social Media</h3>
           <div className="flex flex-wrap gap-2">
             {socialLinks.map((link) => (
-              <a
+              <div
                 key={link.label}
-                href={link.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 rounded-lg bg-gray-700/50 px-4 py-2 text-gray-300 hover:bg-gray-700 transition-colors touch-manipulation active:scale-95"
-                aria-label={link.label}
+                className="flex items-center gap-2 rounded-lg bg-gray-700/50 px-4 py-2 text-gray-300"
               >
                 <link.icon className="h-5 w-5" />
                 <span className="text-sm font-medium">{link.label}</span>
-              </a>
+              </div>
             ))}
           </div>
+          <p className="text-xs text-gray-500 mt-2">Links available via QR code</p>
         </div>
       )}
     </div>

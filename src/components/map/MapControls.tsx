@@ -1,11 +1,11 @@
 'use client';
 
-import { ZoomIn, ZoomOut, Maximize2 } from 'lucide-react';
+import { ZoomIn, ZoomOut } from 'lucide-react';
 import { useMapStore } from '@/lib/store/useMapStore';
 import { MAP_CONFIG } from '@/config/map';
 
 export default function MapControls() {
-  const { zoom, setZoom, resetMap } = useMapStore();
+  const { zoom, setZoom } = useMapStore();
 
   const handleZoomIn = () => {
     if (zoom < MAP_CONFIG.maxZoom) {
@@ -37,14 +37,6 @@ export default function MapControls() {
         aria-label="Zoom out"
       >
         <ZoomOut className="h-6 w-6 text-gray-700" />
-      </button>
-
-      <button
-        onClick={resetMap}
-        className="flex h-12 w-12 items-center justify-center rounded-lg bg-white/90 backdrop-blur-sm shadow-lg transition-all hover:bg-white touch-manipulation active:scale-95"
-        aria-label="Reset map"
-      >
-        <Maximize2 className="h-6 w-6 text-gray-700" />
       </button>
     </div>
   );

@@ -43,7 +43,7 @@ export default function Home() {
 
         {/* Missionary Cards Section - Overlay on right */}
         {isSidebarOpen && (
-          <div className="absolute top-4 right-4 bottom-4 w-full max-w-[400px] lg:max-w-[420px] pointer-events-none">
+          <div className="absolute top-4 right-4 bottom-4 w-full max-w-[320px] lg:max-w-[360px] pointer-events-none">
             <div className="h-full rounded-xl bg-gray-800/85 backdrop-blur-md shadow-2xl border border-gray-700/50 overflow-hidden pointer-events-auto">
               <MissionaryCarousel />
             </div>
