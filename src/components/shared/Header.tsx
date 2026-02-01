@@ -49,9 +49,12 @@ export default function Header({ showPanel = true, onTogglePanel }: HeaderProps)
             {onTogglePanel && (
               <button
                 onClick={onTogglePanel}
-                className="flex items-center justify-center rounded-lg bg-gray-700 p-3 text-gray-200 hover:bg-gray-600 transition-colors touch-manipulation active:scale-95"
+                className="flex items-center gap-2 rounded-lg bg-gray-700 px-4 py-3 text-gray-200 hover:bg-gray-600 transition-colors touch-manipulation active:scale-95"
                 aria-label={showPanel ? 'Hide panel' : 'Show panel'}
               >
+                <span className="text-sm font-medium">
+                  {showPanel ? 'Hide Panel' : 'Show Panel'}
+                </span>
                 {showPanel ? (
                   <ChevronRight className="h-5 w-5" />
                 ) : (
