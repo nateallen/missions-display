@@ -34,42 +34,42 @@ export default function MissionaryCard({ missionary, variant = 'compact' }: Miss
       </div>
 
       {/* Content */}
-      <div className="p-4 lg:p-6">
-        <h3 className="text-xl lg:text-2xl font-bold text-white mb-2 line-clamp-1">
+      <div className="p-3 lg:p-4">
+        <h3 className="text-lg lg:text-xl font-bold text-white mb-1 line-clamp-1">
           {missionary.fullName}
         </h3>
 
-        <div className="flex items-center gap-2 text-gray-300 mb-3">
-          <MapPin className="h-4 w-4 lg:h-5 lg:w-5 flex-shrink-0" />
-          <span className="text-sm lg:text-base line-clamp-1">
+        <div className="flex items-center gap-2 text-gray-300 mb-2">
+          <MapPin className="h-3 w-3 lg:h-4 lg:w-4 flex-shrink-0" />
+          <span className="text-xs lg:text-sm line-clamp-1">
             {missionary.location.city ? `${missionary.location.city}, ` : ''}
             {missionary.location.country}
           </span>
         </div>
 
-        <div className="flex items-center gap-2 text-gray-300 mb-3">
-          <Calendar className="h-4 w-4 lg:h-5 lg:w-5 flex-shrink-0" />
-          <span className="text-sm lg:text-base">
+        <div className="flex items-center gap-2 text-gray-300 mb-2">
+          <Calendar className="h-3 w-3 lg:h-4 lg:w-4 flex-shrink-0" />
+          <span className="text-xs lg:text-sm">
             {missionary.metadata.yearsOfService} years of service
           </span>
         </div>
 
-        <p className="text-sm lg:text-base text-gray-100 font-medium mb-2">
+        <p className="text-xs lg:text-sm text-gray-100 font-medium mb-1">
           {missionary.metadata.ministry}
         </p>
 
         {variant === 'expanded' && (
-          <p className="text-sm lg:text-base text-gray-300 line-clamp-3">
+          <p className="text-xs lg:text-sm text-gray-300 line-clamp-3">
             {missionary.bio}
           </p>
         )}
 
         {/* Tags */}
-        <div className="mt-3 flex flex-wrap gap-2">
+        <div className="mt-2 flex flex-wrap gap-1.5">
           {missionary.metadata.tags.slice(0, 3).map((tag) => (
             <span
               key={tag}
-              className="inline-block rounded-full bg-gray-600/50 px-3 py-1 text-xs lg:text-sm font-medium text-gray-300"
+              className="inline-block rounded-full bg-gray-600/50 px-2 py-0.5 text-xs font-medium text-gray-300"
             >
               {tag}
             </span>

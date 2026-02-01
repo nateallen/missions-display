@@ -1,6 +1,7 @@
 'use client';
 
-import { Globe, RotateCcw, ChevronRight, ChevronLeft } from 'lucide-react';
+import Image from 'next/image';
+import { RotateCcw, ChevronRight, ChevronLeft } from 'lucide-react';
 import { useMapStore } from '@/lib/store/useMapStore';
 import { useMissionaryStore } from '@/lib/store/useMissionaryStore';
 
@@ -24,11 +25,17 @@ export default function Header({ showPanel = true, onTogglePanel }: HeaderProps)
         <div className="flex items-center justify-between">
           {/* Logo/Title */}
           <div className="flex items-center gap-3">
-            <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-gradient-to-br from-gray-600 to-gray-700">
-              <Globe className="h-7 w-7 text-white" />
+            <div className="relative h-12 w-12 flex items-center justify-center">
+              <Image
+                src="/images/logo/lighthouse.png"
+                alt="Lighthouse Baptist Church"
+                width={48}
+                height={48}
+                className="object-contain"
+              />
             </div>
             <div>
-              <h1 className="text-2xl font-bold text-white">Missions Display</h1>
+              <h1 className="text-2xl font-bold text-white">Lighthouse Baptist Church</h1>
               <p className="text-sm text-gray-400">
                 {filteredMissionaries.length}{' '}
                 {filteredMissionaries.length === 1 ? 'Missionary' : 'Missionaries'}

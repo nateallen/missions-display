@@ -1,0 +1,143 @@
+'use client';
+
+import { useParams } from 'next/navigation';
+import { useMissionaries } from '@/hooks/useMissionaries';
+import { Mail, Phone, Cake, Users, Facebook, Instagram, Twitter, Youtube, Globe } from 'lucide-react';
+import LoadingSpinner from '@/components/shared/LoadingSpinner';
+
+export default function MissionaryContactPage() {
+  const params = useParams();
+  const { missionaries, isLoading } = useMissionaries();
+
+  const missionary = missionaries.find((m) => m.id === params.id);
+
+  if (isLoading) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-gray-900">
+        <LoadingSpinner />
+      </div>
+    );
+  }
+
+  if (!missionary) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-gray-900">
+        <div className="text-center text-white">
+          <h1 className="text-2xl font-bold mb-2">Missionary Not Found</h1>
+          <p className="text-gray-400">The missionary you're looking for could not be found.</p>
+        </div>
+      </div>
+    );
+  }
+
+  const socialLinks = [
+    { icon: Facebook, url: missionary.socialMedia.facebook, label: 'Facebook' },
+    { icon: Instagram, url: missionary.socialMedia.instagram, label: 'Instagram' },
+    { icon: Twitter, url: missionary.socialMedia.twitter, label: 'Twitter' },
+    { icon: Youtube, url: missionary.socialMedia.youtube, label: 'YouTube' },
+    { icon: Globe, url: missionary.socialMedia.blog, label: 'Blog' },
+  ].filter((link) => link.url);
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 p-4">
+      <div className="mx-auto max-w-2xl">
+        {/* Header */}
+        <div className="mb-6 text-center">
+          <h1 className="text-3xl font-bold text-white mb-2">{missionary.fullName}</h1>
+          <p className="text-lg text-gray-300">
+            {missionary.location.city}, {missionary.location.country}
+          </p>
+          <p className="text-sm text-gray-400 mt-1">{missionary.metadata.ministry}</p>
+        </div>
+
+        {/* Contact Information */}
+        <div className="mb-6 rounded-xl bg-gray-800/80 backdrop-blur-sm border border-gray-700 p-6 shadow-xl">
+          <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
+            <Mail className="h-5 w-5" />
+            Contact Information
+          </h2>
+
+          <div className="space-y-3">
+            <a
+              href={`mailto:${missionary.contact.email}`}
+              className="flex items-center gap-3 p-4 rounded-lg bg-gray-700/50 hover:bg-gray-700 transition-colors active:scale-98"
+            >
+              <Mail className="h-5 w-5 text-blue-400 flex-shrink-0" />
+              <span className="text-white break-all">{missionary.contact.email}</span>
+            </a>
+
+            {missionary.contact.phone && (
+              <a
+                href={`tel:${missionary.contact.phone}`}
+                className="flex items-center gap-3 p-4 rounded-lg bg-gray-700/50 hover:bg-gray-700 transition-colors active:scale-98"
+              >
+                <Phone className="h-5 w-5 text-green-400 flex-shrink-0" />
+                <span className="text-white">{missionary.contact.phone}</span>
+              </a>
+            )}
+          </div>
+        </div>
+
+        {/* Family Information */}
+        {missionary.family && missionary.family.length > 0 && (
+          <div className="mb-6 rounded-xl bg-gray-800/80 backdrop-blur-sm border border-gray-700 p-6 shadow-xl">
+            <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
+              <Users className="h-5 w-5" />
+              Family
+            </h2>
+
+            <div className="space-y-3">
+              {missionary.family.map((member) => (
+                <div
+                  key={member.id}
+                  className="flex items-center justify-between p-4 rounded-lg bg-gray-700/50"
+                >
+                  <div>
+                    <p className="font-semibold text-white">{member.name}</p>
+                    <p className="text-sm text-gray-400 capitalize">{member.relationship}</p>
+                  </div>
+                  <div className="flex items-center gap-2 text-gray-300">
+                    <Cake className="h-4 w-4" />
+                    <span className="text-sm">
+                      {member.birthday.toLocaleDateString('en-US', {
+                        month: 'short',
+                        day: 'numeric'
+                      })}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Social Media */}
+        {socialLinks.length > 0 && (
+          <div className="rounded-xl bg-gray-800/80 backdrop-blur-sm border border-gray-700 p-6 shadow-xl">
+            <h2 className="text-xl font-bold text-white mb-4">Follow on Social Media</h2>
+
+            <div className="grid grid-cols-1 gap-3">
+              {socialLinks.map((link) => (
+                <a
+                  key={link.label}
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 p-4 rounded-lg bg-gray-700/50 hover:bg-gray-700 transition-colors active:scale-98"
+                >
+                  <link.icon className="h-5 w-5 text-gray-300 flex-shrink-0" />
+                  <span className="font-medium text-white">{link.label}</span>
+                </a>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Footer */}
+        <div className="mt-8 text-center text-sm text-gray-500">
+          <p>Lighthouse Baptist Church Missionaries</p>
+        </div>
+      </div>
+    </div>
+  );
+}
