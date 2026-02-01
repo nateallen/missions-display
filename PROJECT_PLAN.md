@@ -491,6 +491,135 @@ export async function GET(req: Request) {
 ---
 
 ### Future Enhancements
+
+#### 🤖 AI-Powered Data Extraction (HIGH VALUE - Differentiator)
+**Goal**: Dramatically reduce manual data entry by using AI to extract missionary information from newsletters and prayer cards
+
+**Use Cases**:
+1. **Newsletter Upload → Auto-Populate Bio/Updates**
+   - Upload PDF newsletter
+   - AI extracts key highlights, ministry updates, achievements
+   - Suggests bio updates or auto-generates summary text
+   - Admin reviews and approves changes
+   - Track which newsletter each update came from
+
+2. **Prayer Card Import → Quick Profile Creation**
+   - Upload prayer card images (JPG/PNG/PDF)
+   - OCR + AI extracts structured data:
+     - Name, location, country, ministry focus
+     - Family members (names, relationships)
+     - Contact information
+     - Photo (crop and extract from card)
+   - Pre-fills missionary profile form
+   - Admin reviews, edits, and saves
+
+3. **Bulk Import**
+   - Upload multiple prayer cards or PDFs
+   - AI processes batch in background
+   - Creates draft profiles for each missionary
+   - Admin reviews queue and publishes
+
+4. **Smart Bio Generation**
+   - Analyze multiple newsletters over time
+   - Generate comprehensive bio from all updates
+   - Highlight key ministry achievements
+   - Maintain consistent tone and style
+
+**Technical Implementation**:
+```typescript
+// services/ai-extraction.service.ts
+export const aiExtractionService = {
+  async extractFromPDF(fileUrl: string) {
+    // 1. Extract text from PDF
+    const text = await pdfToText(fileUrl);
+
+    // 2. Send to Claude API
+    const response = await anthropic.messages.create({
+      model: "claude-3-5-sonnet-20241022",
+      messages: [{
+        role: "user",
+        content: `Extract missionary information from this newsletter text.
+        Return JSON with: name, location, ministry_focus, bio_highlights,
+        family_members (array), recent_updates (array).
+
+        Text: ${text}`
+      }]
+    });
+
+    // 3. Parse AI response
+    return JSON.parse(response.content[0].text);
+  },
+
+  async extractFromImage(imageUrl: string) {
+    // 1. OCR with Tesseract or AWS Textract
+    const text = await performOCR(imageUrl);
+
+    // 2. Send to Claude API with vision
+    const response = await anthropic.messages.create({
+      model: "claude-3-5-sonnet-20241022",
+      messages: [{
+        role: "user",
+        content: [
+          {
+            type: "image",
+            source: { type: "url", url: imageUrl }
+          },
+          {
+            type: "text",
+            text: "Extract all missionary information from this prayer card..."
+          }
+        ]
+      }]
+    });
+
+    return JSON.parse(response.content[0].text);
+  }
+};
+```
+
+**UI Flow**:
+```
+1. Admin clicks "Import from Newsletter/Prayer Card"
+2. Upload file (drag-and-drop or file picker)
+3. AI processing indicator (30-60 seconds)
+4. Show extracted data in review modal:
+   - Side-by-side: Original document | Extracted data
+   - Editable fields with AI suggestions highlighted
+   - Confidence scores for each field
+5. Admin edits/approves
+6. Save to database
+```
+
+**Database Schema Additions**:
+```sql
+-- Track AI extractions for audit and improvement
+ai_extractions
+  - id (uuid)
+  - source_file_url (string)
+  - source_type (enum: newsletter_pdf, prayer_card_image)
+  - extracted_data (jsonb)
+  - missionary_id (uuid, nullable - if matched to existing)
+  - status (enum: pending, approved, rejected)
+  - reviewed_by_user_id (uuid)
+  - created_at (timestamp)
+```
+
+**Cost Considerations**:
+- Claude API: ~$0.01-0.05 per extraction (3-15 pages)
+- OCR (Tesseract): Free (self-hosted) or AWS Textract: $0.0015/page
+- Estimated: $0.02-0.10 per missionary profile import
+- ROI: Saves 15-30 minutes of manual data entry per missionary
+
+**Potential Premium Feature**:
+- Basic tier: Manual data entry only
+- Pro tier: 50 AI extractions/month
+- Enterprise tier: Unlimited AI extractions
+
+**Implementation Priority**: Phase 9 or 10 (after core features stable and validated)
+
+---
+
+#### Other Future Enhancements
 - [ ] Mobile app (React Native?)
 - [ ] Missionary prayer requests
 - [ ] Donation/giving integration
@@ -503,6 +632,9 @@ export async function GET(req: Request) {
 - [ ] API for third-party integrations
 - [ ] Reporting and analytics dashboard
 - [ ] Automated reminder emails for birthday/anniversaries
+- [ ] Missionary field reports and updates timeline
+- [ ] Integration with church management systems (Planning Center, CCB)
+- [ ] Automated social media posting for missionary updates
 
 ---
 
